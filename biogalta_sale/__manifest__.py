@@ -19,6 +19,7 @@
     # for the full list
     'category': 'Sale',
     'version': '15.0.1',
+    'license': 'LGPL-3',
 
     # any module necessary for this one to work correctly
     'depends': [
