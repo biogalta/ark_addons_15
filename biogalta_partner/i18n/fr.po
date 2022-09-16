@@ -1,0 +1,229 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* biogalta_partner
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-25 06:39+0000\n"
+"PO-Revision-Date: 2022-07-25 06:39+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: biogalta_partner
+#: model_terms:ir.actions.act_window,help:biogalta_partner.biogalta_inherti_action_contacts_customers
+msgid "Click to add a new Customers"
+msgstr "Cliquez pour ajouter un nouveau client"
+
+#. module: biogalta_partner
+#: model_terms:ir.actions.act_window,help:biogalta_partner.biogalta_inherit_action_contacts_commercial
+#: model_terms:ir.actions.act_window,help:biogalta_partner.biogalta_inherti_action_contacts_promoter
+msgid "Click to add a new Promoter"
+msgstr "Cliquez pour ajouter un nouveau commercialisateur"
+
+#. module: biogalta_partner
+#: model_terms:ir.actions.act_window,help:biogalta_partner.biogalta_inherti_action_contacts_prospects
+msgid "Click to add a new Prospect"
+msgstr "Cliquez pour ajouter un nouveau prospect"
+
+#. module: biogalta_partner
+#: model:ir.actions.act_window,name:biogalta_partner.biogalta_inherit_action_contacts_commercial
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_partner__commercial_id
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_users__commercial_id
+#: model_terms:ir.ui.view,arch_db:biogalta_partner.biogalta_inherit_view_partner_form
+msgid "Commercial"
+msgstr "Commerciale"
+
+#. module: biogalta_partner
+#: model:ir.ui.menu,name:biogalta_partner.biogalta_sub_commercials
+msgid "Commerciaux"
+msgstr ""
+
+#. module: biogalta_partner
+#: code:addons/biogalta_partner/models/account_intrastat_code.py:0
+#, python-format
+msgid "Commodity"
+msgstr "Marchandise"
+
+#. module: biogalta_partner
+#: model:ir.model,name:biogalta_partner.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: biogalta_partner
+#: model:ir.model.fields,field_description:biogalta_partner.field_account_intrastat_code__country_id
+msgid "Country"
+msgstr "Pays"
+
+#. module: biogalta_partner
+#: model:ir.actions.act_window,name:biogalta_partner.biogalta_inherti_action_contacts_customers
+#: model:ir.ui.menu,name:biogalta_partner.biogalta_sub_menu_customers
+msgid "Customers"
+msgstr "Clients"
+
+#. module: biogalta_partner
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_partner__promoter_partner_ids
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_users__promoter_partner_ids
+msgid "Customers linked"
+msgstr "Clients liés"
+
+#. module: biogalta_partner
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_partner__commercial_partner_ids
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_users__commercial_partner_ids
+msgid "Customers of commercial"
+msgstr "Clients du commerce"
+
+#. module: biogalta_partner
+#. openerp-web
+#: code:addons/biogalta_partner/static/src/xml/base.xml:0
+#: code:addons/biogalta_partner/static/src/xml/base.xml:0
+#, python-format
+msgid "Delete"
+msgstr "Supprimer"
+
+#. module: biogalta_partner
+#: model_terms:ir.ui.view,arch_db:biogalta_partner.biogalta_inherit_view_partner_form
+msgid "ID"
+msgstr ""
+
+#. module: biogalta_partner
+#: model_terms:ir.ui.view,arch_db:biogalta_partner.inherit_view_partner_tree
+msgid "Id"
+msgstr ""
+
+#. module: biogalta_partner
+#: model:ir.model,name:biogalta_partner.model_account_intrastat_code
+msgid "Intrastat Code"
+msgstr "Code Intrastat"
+
+#. module: biogalta_partner
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_partner__is_commercial
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_users__is_commercial
+msgid "Is a commercial"
+msgstr ""
+
+#. module: biogalta_partner
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_partner__is_point_of_sale
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_users__is_point_of_sale
+msgid "Is a point of sale"
+msgstr "Est un point de vente"
+
+#. module: biogalta_partner
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_partner__is_promoter
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_users__is_promoter
+msgid "Is a promoter"
+msgstr "Est un promoteur"
+
+#. module: biogalta_partner
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_partner__is_prospect
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_users__is_prospect
+msgid "Is a prospect"
+msgstr "Est un prospect"
+
+#. module: biogalta_partner
+#: model:ir.model.fields.selection,name:biogalta_partner.selection__account_intrastat_code__type__commodity
+msgid "Marchandise"
+msgstr ""
+
+#. module: biogalta_partner
+#: model:ir.model.fields,field_description:biogalta_partner.field_account_intrastat_code__name
+msgid "Name"
+msgstr ""
+
+#. module: biogalta_partner
+#: model_terms:ir.ui.view,arch_db:biogalta_partner.biogalta_inherit_view_partner_form
+msgid "Partner linked"
+msgstr "Prospects/Clients liés"
+
+#. module: biogalta_partner
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_partner__promoter_id
+#: model:ir.model.fields,field_description:biogalta_partner.field_res_users__promoter_id
+msgid "Promoter"
+msgstr "Promoteur"
+
+#. module: biogalta_partner
+#: model:ir.actions.act_window,name:biogalta_partner.biogalta_inherti_action_contacts_promoter
+#: model:ir.ui.menu,name:biogalta_partner.biogalta_sub_menu_promoters
+msgid "Promoters"
+msgstr "Commercialisateurs"
+
+#. module: biogalta_partner
+#: model:ir.actions.act_window,name:biogalta_partner.biogalta_inherti_action_contacts_prospects
+#: model:ir.ui.menu,name:biogalta_partner.biogalta_sub_menu_prospects
+msgid "Prospects"
+msgstr ""
+
+#. module: biogalta_partner
+#: code:addons/biogalta_partner/models/account_intrastat_code.py:0
+#, python-format
+msgid "Region"
+msgstr "Région"
+
+#. module: biogalta_partner
+#: model:ir.model.fields,help:biogalta_partner.field_account_intrastat_code__country_id
+msgid "Restrict the applicability of code to a country."
+msgstr "Restreindre l'applicabilité du code à un pays."
+
+#. module: biogalta_partner
+#: model:ir.model.fields.selection,name:biogalta_partner.selection__account_intrastat_code__type__region
+msgid "Région"
+msgstr ""
+
+#. module: biogalta_partner
+#: model:ir.model.fields.selection,name:biogalta_partner.selection__account_intrastat_code__type__transaction
+msgid "Transaction"
+msgstr ""
+
+#. module: biogalta_partner
+#: model_terms:ir.ui.view,arch_db:biogalta_partner.biogalta_inherit_view_partner_form
+msgid "Transform to Customer"
+msgstr "Transformer en client"
+
+#. module: biogalta_partner
+#: model:ir.model.fields.selection,name:biogalta_partner.selection__account_intrastat_code__type__transport
+msgid "Transport"
+msgstr ""
+
+#. module: biogalta_partner
+#: model:ir.model.fields,field_description:biogalta_partner.field_account_intrastat_code__type
+msgid "Type"
+msgstr ""
+
+#. module: biogalta_partner
+#: model:ir.model.fields,help:biogalta_partner.field_account_intrastat_code__type
+msgid ""
+"Type de code intrastat utilisé pour filtrer les codes par utilisation.  N * "
+"Produit: Code à définir sur les lignes de facturation à des fins "
+"statistiques de l'Union européenne.  n* transport: le véhicule actif qui "
+"fait passer les marchandises à la frontière.  n* transaction: un mouvement "
+"de marchandises.  n* région: une sous-partie du pays.  n\""
+msgstr ""
+
+#. module: biogalta_partner
+#: code:addons/biogalta_partner/models/account_intrastat_code.py:0
+#, python-format
+msgid ""
+"Type of intrastat code used to filter codes by usage.\n"
+"            * commodity: Code to be set on invoice lines for European Union statistical purposes.\n"
+"            * transport: The active vehicle that moves the goods across the border.\n"
+"            * transaction: A movement of goods.\n"
+"            * region: A sub-part of the country.\n"
+"        "
+msgstr ""
+"Type de code intrastat utilisé pour filtrer les codes par utilisation.  N * "
+"Produit: Code à définir sur les lignes de facturation à des fins "
+"statistiques de l'Union européenne.  n* transport: le véhicule actif qui "
+"fait passer les marchandises à la frontière.  n* transaction: un mouvement "
+"de marchandises.  n* région: une sous-partie du pays.  n\""
+
+#. module: biogalta_partner
+#. openerp-web
+#: code:addons/biogalta_partner/static/src/xml/base.xml:0
+#, python-format
+msgid "or"
+msgstr "ou"

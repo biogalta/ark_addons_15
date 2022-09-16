@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_product_price_history_inherit" model="ir.ui.view">
+            <field name="name">product.price.history.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='inventory']" position="after">
+                    <page string="Product Price History" name="cost_history">
+                        <field name="product_price_history_ids">
+                            <tree default_order="datetime desc">
+                                <field name="datetime" string="Date"/>
+                                <field name="cost" string="Cost"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_price_history_form" model="ir.ui.view">
+            <field name="name">product.price.history.form</field>
+            <field name="model">product.price.history</field>
+            <field name="arch" type="xml">
+                <form string="Product Price History">
+                    <group>
+                        <group>
+                            <field name="product_id" string="Product"/>
+                            <field name="datetime" string="Date"/>
+                        </group>
+                        <group>
+                            <field name="company_id" string="Company"/>
+                            <field name="cost" string="Cost"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_product_price_history_tree" model="ir.ui.view">
+            <field name="name">product.price.history.tree</field>
+            <field name="model">product.price.history</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="product_id" string="Product"/>
+                    <field name="datetime" string="Date"/>
+                    <field name="cost" string="Cost"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_product_price_history" model="ir.actions.act_window">
+            <field name="name">Product Price History</field>
+            <field name="res_model">product.price.history</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- <menuitem id="menu_product_price_history" name="Product Price History" parent="stock.menu_warehouse_report" sequence="200" action="action_product_price_history"/> !-->
+
+        <record id="view_stock_return_pick_form_inherit" model="ir.ui.view">
+            <field name="name">view_stock_return_pick_form_inherit</field>
+            <field name="model">stock.return.picking</field>
+            <field name="inherit_id" ref="stock_account.view_stock_return_picking_form_inherit_stock_account"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_return_moves']/tree/field[@name='to_refund']" position="attributes">
+                    <attribute name="string">Mettre a jour les quantite sur le devis/bon de commande fournisseur</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_stock_return_picking_form_inherit" model="ir.ui.view">
+            <field name="name">Return lines inherit</field>
+            <field name="model">stock.return.picking</field>
+            <field name="inherit_id" ref="stock.view_stock_return_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_return_moves']/tree/field[@name='to_refund']" position="replace">
+                    <field name="to_refund"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

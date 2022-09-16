@@ -1,0 +1,443 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* biogalta_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e-20191101\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-08 08:09+0000\n"
+"PO-Revision-Date: 2020-01-08 08:09+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_invoice_document_inherit_sale
+msgid "&amp;nbsp;\n"
+"                                                    <span>sur</span>&amp;nbsp;"
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_saleoder_document
+msgid "&amp;nbsp;<span>sur</span>&amp;nbsp;"
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.res_config_settings_view_form
+msgid "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" aria-label=\"Values set here are company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_invoice_document_inherit_sale
+msgid "<span groups=\"account.group_show_line_subtotals_tax_excluded\">Montant HT dont eco-contribution</span>\n"
+"                <span groups=\"account.group_show_line_subtotals_tax_included\">Montant HT dont eco-contribution</span>"
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_invoice_document_inherit_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_saleoder_document
+msgid "<strong class=\"mr16\">Subtotal</strong>"
+msgstr "<strong class=\"mr16\">Sous-total</strong>"
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_invoice_document_inherit_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_saleoder_document
+msgid "<strong style=\"font-size: 22px;\">Adresse de facturation :</strong>"
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_invoice_document_inherit_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_saleoder_document
+msgid "<strong style=\"font-size: 22px;\">Adresse de livraison:</strong>"
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.report_delivery_document_inherit
+msgid "<strong>Date</strong>"
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_invoice_document_inherit_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_saleoder_document
+msgid "<strong>Dont éco-contribution TTC</strong>"
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.minimal_layout_inherit1
+msgid "<strong>Fiscal Position Remark:</strong>"
+msgstr "<strong>Remarque sur le régime fiscal :</strong>"
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_invoice_document_inherit_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_saleoder_document
+msgid "<strong>Id:</strong>"
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_invoice_document_inherit_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_saleoder_document
+msgid "<strong>Montant TTC</strong>"
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_invoice_document_inherit_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_saleoder_document
+msgid "<strong>Numero du client:</strong>"
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.report_delivery_document_inherit
+msgid "<strong>Origine</strong>"
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_invoice_document_inherit_sale
+msgid "<strong>Reference:</strong>"
+msgstr "<strong>Référence:</strong>"
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_invoice_document_inherit_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_saleoder_document
+msgid "<strong>Sous-total HT dont éco-contribution</strong>"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_account_move__amount_untaxe_eco
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order__amount_untaxe_eco
+msgid "Amount Untaxe Eco"
+msgstr "Montant Eco"
+
+#. module: biogalta_sale
+#: code:addons/biogalta_sale/models/account_move_models.py:40
+#: code:addons/biogalta_sale/models/sale_order_models.py:33
+#: model:ir.model.fields,field_description:biogalta_sale.field_account_move__commercial_id
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order__commercial_id
+#, python-format
+msgid "Commercial"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_account_move__promoter_id
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order__promoter_id
+msgid "Commercialisateur"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model,name:biogalta_sale.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: biogalta_sale
+#: model:ir.model,name:biogalta_sale.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paramètres de config"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order_tax__create_uid
+#: model:ir.model.fields,field_description:biogalta_sale.field_tax_account_move__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order_tax__create_date
+#: model:ir.model.fields,field_description:biogalta_sale.field_tax_account_move__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order_tax__display_name
+#: model:ir.model.fields,field_description:biogalta_sale.field_tax_account_move__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_account_tax_group__is_eco_tax
+msgid "Est un eco tax"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order_tax__id
+#: model:ir.model.fields,field_description:biogalta_sale.field_tax_account_move__id
+msgid "ID"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_account_move__id_contact
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order__id_contact
+msgid "Id"
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.res_config_settings_view_form
+msgid "Insert your observation here..."
+msgstr "Ajouter votre observation ici ..."
+
+#. module: biogalta_sale
+#: model:ir.model,name:biogalta_sale.model_account_move
+#: model:ir.model.fields,field_description:biogalta_sale.field_tax_account_move__invoice_id
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: biogalta_sale
+#: model:ir.model,name:biogalta_sale.model_account_move_line
+msgid "Invoice Line"
+msgstr "Ligne de facture"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order_tax__is_eco_tax
+#: model:ir.model.fields,field_description:biogalta_sale.field_tax_account_invoice__is_eco_tax
+msgid "Is eco tax"
+msgstr "Est un eco tax"
+
+#. module: biogalta_sale
+#: model:ir.model,name:biogalta_sale.model_account_move_line
+msgid "Journal Item"
+msgstr "Écriture comptable"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order_tax____last_update
+#: model:ir.model.fields,field_description:biogalta_sale.field_tax_account_move____last_update
+msgid "Last Modified on"
+msgstr "Dernière Modification le"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order_tax__write_uid
+#: model:ir.model.fields,field_description:biogalta_sale.field_tax_account_move__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order_tax__write_date
+#: model:ir.model.fields,field_description:biogalta_sale.field_tax_account_move__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_inherit_external_layout_standard
+msgid "Logo"
+msgstr ""
+
+#. module: biogalta_sale
+#: selection:product.category,type:0
+msgid "Machine"
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_inherit_view_order_form
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_saleoder_document
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.inherit_invoice_form
+msgid "Montant HT dont eco-contribution"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_res_company__observation_machine
+msgid "Observation"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_res_config_settings__observation_machine
+msgid "Observation (Machine)"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order_tax__order_id
+msgid "Order"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model,name:biogalta_sale.model_account_payment
+msgid "Payments"
+msgstr "Paiements"
+
+#. module: biogalta_sale
+#: code:addons/biogalta_sale/models/account_move_models.py:185
+#, python-format
+msgid "Please add at least one invoice line."
+msgstr ""
+
+#. module: biogalta_sale
+#: code:addons/biogalta_sale/models/account_move_models.py:183
+#, python-format
+msgid "Please define sequence on the journal related to this invoice."
+msgstr ""
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_invoice_document_inherit_sale
+msgid "Please use the following communication for your payment :"
+msgstr "Merci d'utiliser la communication suivante pour votre paiement:"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order_tax__tax_value
+#: model:ir.model.fields,field_description:biogalta_sale.field_tax_account_move__tax_value
+msgid "Prix"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model,name:biogalta_sale.model_product_product
+msgid "Product"
+msgstr "Article"
+
+#. module: biogalta_sale
+#: model:ir.model,name:biogalta_sale.model_product_category
+msgid "Product Category"
+msgstr "Catégorie d'article"
+
+#. module: biogalta_sale
+#: code:addons/biogalta_sale/models/account_move_models.py:41
+#: code:addons/biogalta_sale/models/sale_order_models.py:34
+#, python-format
+msgid "Promoter"
+msgstr "Commercialisateur"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_account_move_line__default_code_product
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order_line__default_code_product
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_invoice_document_inherit_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_saleoder_document
+msgid "Référence interne"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model,name:biogalta_sale.model_sale_order
+msgid "Sale Order"
+msgstr "Bon de commande"
+
+#. module: biogalta_sale
+#: model:ir.model,name:biogalta_sale.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bons de commande"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_account_move_line__serial_num
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.biogalta_report_invoice_document_inherit_sale
+msgid "Serial Number"
+msgstr "Numéro de série"
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.res_config_settings_view_form
+msgid "Show observation on orders if there is machine in order lines"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_account_move_line__price_subtotal
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order_line__price_subtotal
+msgid "Subtotal"
+msgstr "Sous-total"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_account_move__tax_invoice_ids
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order__tax_orders_ids
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order_tax__tax_name
+#: model:ir.model.fields,field_description:biogalta_sale.field_tax_account_move__tax_name
+msgid "TVA"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model,name:biogalta_sale.model_account_tax
+#: model:ir.model.fields,field_description:biogalta_sale.field_account_move__amount_tax
+msgid "Tax"
+msgstr "Taxe"
+
+#. module: biogalta_sale
+#: model:ir.model,name:biogalta_sale.model_account_tax_group
+msgid "Tax Group"
+msgstr "Groupe de taxe"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_account_move__amount_by_group
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order__amount_by_group
+msgid "Tax amount by group"
+msgstr "Montant de la taxe par groupe"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order__amount_tax
+msgid "Taxes"
+msgstr ""
+
+#. module: biogalta_sale
+#: code:addons/biogalta_sale/models/sale_order_models.py:117
+#, python-format
+msgid "There is no invoiceable line. If a product has a Delivered quantities invoicing policy, please make sure that a quantity has been delivered."
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_account_move__amount_total
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order__amount_total
+msgid "Total"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model.fields,help:biogalta_sale.field_account_move_line__price_subtotal
+msgid "Total amount without taxes"
+msgstr "Montant total hors-taxe"
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_product_category__type
+msgid "Type"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model.fields,field_description:biogalta_sale.field_account_move__amount_untaxed
+#: model:ir.model.fields,field_description:biogalta_sale.field_sale_order__amount_untaxed
+msgid "Untaxed Amount"
+msgstr "Montant HT"
+
+#. module: biogalta_sale
+#: code:addons/biogalta_sale/models/sale_order_models.py:198
+#, python-format
+msgid "You must modify this prospect in client to continue on order form"
+msgstr "Vous devez transformer ce prospect en client dans sa fiche contact pour continuer en bon de commande"
+
+#. module: biogalta_sale
+#: model:ir.model,name:biogalta_sale.model_sale_order_tax
+msgid "sale.order.tax"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model,name:biogalta_sale.model_tax_account_move
+msgid "tax.account.invoice"
+msgstr ""
+
+#. module: biogalta_sale
+#: model:ir.model.fields,help:biogalta_sale.field_account_move__amount_by_group
+#: model:ir.model.fields,help:biogalta_sale.field_sale_order__amount_by_group
+msgid "type: [(name, amount, base, formated amount, formated base)]"
+msgstr ""
+
+
+#. module: account_intrastat
+#: model:ir.model.fields,field_description:account_intrastat.field_account_move_line__intrastat_transaction_id
+msgid "Intrastat"
+msgstr "Déclaration d'Echange de Biens"
+
+
+#. module: account_reports
+#: code:addons/account_reports/models/account_bank_reconciliation_report.py:185
+#, python-format
+msgid "Current balance of accounts %s"
+msgstr "Balance courante du compte %s"
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.report_delivery_document_inherit
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.report_picking_inherit
+msgid "<strong>Order</strong>"
+msgstr "<strong>Ticket</strong>"
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.report_picking_inherit
+msgid "<strong>State</strong>"
+msgstr "<strong>Etat</strong>"
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.report_picking_inherit
+msgid "<strong>Scheduled Date</strong>"
+msgstr "<strong>Date planifiée</strong>"
+
+#. module: biogalta_sale
+#: model_terms:ir.ui.view,arch_db:biogalta_sale.report_delivery_document_inherit
+msgid "<strong>Customer Reference:</strong>"
+msgstr "<strong>Référence client:</strong>"

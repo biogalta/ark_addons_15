@@ -1,0 +1,17 @@
+tr td.o_price_total{
+    background-color: white !important;
+}
+
+table tr.o_total td{
+    background-color: #d3d4d5 !important;
+    color: black !important;
+}
+
+.o_boxed_footer{
+    font-size: 11px !important;
+}
+.company_address{
+    font-size: 15px !important;
+}
+
+

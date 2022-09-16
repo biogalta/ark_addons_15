@@ -1,0 +1,47 @@
+<odoo>
+  <data>
+     <record id="action_account_report_coa_regrouped" model="ir.actions.client">
+            <field name="name">General Balance Biogalta</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'account.coa.report.global'}" />
+     </record>
+
+    <menuitem id="menu_action_account_report_coa_regrouped" name="General Balance Biogalta"
+              action="action_account_report_coa_regrouped" parent="account_reports.account_reports_audit_reports_menu"
+              groups="account.group_account_user"/>
+
+      <record id="account.view_move_tree" model="ir.ui.view">
+            <field name="name">account.move.tree</field>
+            <field name="model">account.move</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'draft'" string="Journal Entries">
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="ref"/>
+                    <field name="journal_id"/>
+                    <field name="amount_total"/>
+                    <field name="state"/>
+                    <field name="currency_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+      <record id="account.action_move_journal_line" model="ir.actions.act_window">
+            <field name="name">Journal Entries</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">tree,form</field>            
+            <field name="view_id" ref="account.view_move_tree"/>
+            <field name="search_view_id" ref="account.view_account_move_filter"/>
+            <field name="context">{'search_default_misc_filter':1, 'view_no_maturity': True}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a journal entry
+              </p><p>
+                A journal entry consists of several journal items, each of
+                which is either a debit or a credit transaction.
+              </p>
+            </field>
+        </record>
+  </data>
+</odoo>

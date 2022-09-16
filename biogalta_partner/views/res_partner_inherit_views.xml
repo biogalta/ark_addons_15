@@ -1,0 +1,344 @@
+<odoo>
+    <data>
+        <!--
+            change variable:
+                -customer->customer_rank
+                -supplier->supplier_rank
+        -->
+
+         <record id="contacts.action_contacts" model="ir.actions.act_window">
+            <field name="name">Contacts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <!--<field name="view_type">form</field>-->
+            <field name="view_mode">tree,form,kanban,activity</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a contact in your address book
+              </p><p>
+                Odoo helps you to easily track all activities related to a customer.
+              </p>
+            </field>
+        </record>
+         <record id="contacts.action_contacts_view_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="5"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="base.res_partner_kanban_view"/>
+            <field name="act_window_id" ref="contacts.action_contacts"/>
+        </record>
+
+
+        <record id="base.action_partner_customer_form_view1" model="ir.actions.act_window.view">
+            <field eval="5" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="base.res_partner_kanban_view"/>
+            <field name="act_window_id" ref="base.action_partner_customer_form"/>
+        </record>
+
+
+        <record id="base.action_partner_vendor_form_view1" model="ir.actions.act_window.view">
+            <field eval="5" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="base.res_partner_kanban_view"/>
+            <field name="act_window_id" ref="base.action_partner_supplier_form"/>
+        </record>
+
+        <record id="base.action_partner_form" model="ir.actions.act_window">
+            <field name="view_mode">tree,form,activity,kanban</field>
+        </record>
+        <record id="base.action_partner_customer_form" model="ir.actions.act_window">
+            <field name="view_mode">tree,form,activity,kanban</field>
+        </record>
+        <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+            <field name="view_mode">tree,form,activity,kanban</field>
+        </record>
+
+        <record id="base.action_partner_form_view1" model="ir.actions.act_window.view">
+            <field eval="5" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="base.res_partner_kanban_view"/>
+            <field name="act_window_id" ref="base.action_partner_form"/>
+        </record>
+
+
+
+        <record id="biogalta_inherti_action_contacts_customers" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <!--<field name="view_type">form</field>-->
+            <field name="view_mode">tree,form,kanban,activity</field>
+            <field name="context">{'default_is_promoter': False}</field>
+            <field name="domain">[('customer_rank', '>', 0), ('is_promoter', '=', False)]</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new Customers
+
+                </p>
+            </field>
+        </record>
+
+        <record id="biogalta_inherti_action_contacts_prospects" model="ir.actions.act_window">
+            <field name="name">Prospects</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <!--<field name="view_type">form</field>-->
+            <field name="view_mode">tree,form,kanban,activity</field>
+            <field name="context">{'default_is_promoter': False, 'default_is_prospect':True}</field>
+            <field name="domain">[('customer_rank', '=', 0),('supplier_rank', '=', 0), ('is_promoter', '=', False),
+                ('is_commercial', '=', False),('is_prospect','=',True)]
+            </field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new Prospect
+                </p>
+            </field>
+        </record>
+
+        <record id="biogalta_inherti_action_contacts_promoter" model="ir.actions.act_window">
+            <field name="name">Promoters</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <!--<field name="view_type">form</field>-->
+            <field name="view_mode">tree,form,kanban,activity</field>
+            <field name="context">{'default_is_promoter': True}</field>
+            <field name="domain">[('is_promoter', '=', True)]</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new Promoter
+                </p>
+            </field>
+        </record>
+
+        <record id="biogalta_inherit_action_contacts_commercial" model="ir.actions.act_window">
+            <field name="name">Commercial</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <!--<field name="view_type">form</field>-->
+            <field name="view_mode">tree,form,kanban,activity</field>
+            <field name="context">{'default_is_commercial': True}</field>
+            <field name="domain">[('is_commercial', '=', True)]</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Click to add a new Promoter
+                </p>
+            </field>
+        </record>
+
+       <!-- <record id="biogalta_inherit_view_partner_form" model="ir.ui.view">
+            <field name="name">Referencial</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="id"/>
+                </xpath>
+            </field>
+        </record>-->
+        <record id="biogalta_inherit_view_partner_form" model="ir.ui.view">
+            <field name="name">Referencial</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='sale']/field[@name='user_id']" position="before">
+                    <field name="is_prospect"/>
+                </xpath>
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="is_promoter" invisible="1"/>
+                    <field name="is_commercial" invisible="1"/>
+                    <field name="supplier_rank" invisible="1"/>
+                    <field name="customer_rank" invisible="1"/>
+                    <field name="commercial_id" domain="[('is_commercial', '=', True)]" context="{'default_is_commercial':True}"
+                           readonly="0" attrs="{'invisible': ['|',('is_promoter','=',True),('is_commercial','=',True)]}"
+                           string="Commercial"/>
+                    <field name="promoter_id" domain="[('is_promoter', '=', True)]"
+                           attrs="{'invisible': ['|',('is_promoter','=',True),('is_commercial','=',True)]}"/>
+                    <field name="is_point_of_sale"
+                           attrs="{'invisible': ['|','|',('is_promoter','=',True),('is_commercial','=',True),('supplier_rank', '>', 0)]}"/>
+                </xpath>
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <button name="transform_prospect_to_customer" string="Transform to Customer" type="object"
+                                attrs="{'invisible': ['|','|','|',('customer_rank', '>', 0),('supplier_rank','>',0),('is_promoter','=',True),
+                                ('is_commercial','=',True)]}" class="oe_highlight"/>
+                    </header>
+                </xpath>
+
+                <xpath expr="//page[@name='sales_purchases']" position="after">
+                    <page name="promoter_partner_ids" string="Partner linked"
+                          attrs="{'invisible': [('is_promoter', '=', False)]}">
+                        <field name="promoter_partner_ids"/>
+                    </page>
+                    <page name="commercial_partner_ids" string="Partner linked"
+                          attrs="{'invisible': [('is_commercial', '=', False)]}">
+                        <field name="commercial_partner_ids"/>
+                    </page>
+                </xpath>
+                <xpath expr="//span[@name='address_name']" position="before">
+                    <field name="id" string="ID"/>
+                </xpath>
+                <xpath expr="//field[@name='street']" position="attributes">
+                    <attribute name="attrs">{'required' : [('customer_rank', '>', 0)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='city']" position="attributes">
+                    <attribute name="attrs">{'required' : [('customer_rank', '>', 0)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='zip']" position="attributes">
+                    <attribute name="attrs">{'required' : [('customer_rank', '>', 0)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='country_id']" position="attributes">
+                    <attribute name="attrs">{'required' : [('customer_rank', '>', 0)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='vat']" position="attributes">
+                    <attribute name="attrs">{'required' : [('customer_rank', '>', 0)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="attributes">
+                    <attribute name="attrs">{'required' : [('customer_rank', '>', 0)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='property_payment_term_id']" position="attributes">
+                    <attribute name="attrs">{'required' : [('customer_rank', '>', 0)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='ref']" position="attributes">
+                    <attribute name="attrs">{'required' : [('customer_rank', '>', 0)]}
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product.view_partner_property_form" model="ir.ui.view">
+            <field name="name">res.partner.product.property.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="groups_id" eval="[(4, ref('product.group_sale_pricelist'))]"/>
+            <field name="arch" type="xml">
+                <group name="sale">
+                    <field name="customer_rank" invisible="1"/>
+                    <field name="property_product_pricelist" groups="product.group_sale_pricelist"
+                           attrs="{'invisible': [('is_company','=',False),('parent_id','!=',False)], 'required' : [('company_type','=','company'),('customer_rank', '>', 0)]}"/>
+                    <div name="parent_pricelists" groups="product.group_sale_pricelist" colspan="2"
+                         attrs="{'invisible': ['|',('is_company','=',True),('parent_id','=',False)]}">
+                        <p>Pricelists are managed on
+                            <button name="open_commercial_entity" type="object" string="the parent company"
+                                    class="oe_link"/>
+                        </p>
+                    </div>
+                </group>
+            </field>
+        </record>
+
+        <record id="biogalta_inherit_view_partner_property_form" model="ir.ui.view">
+            <field name="name">Referencial</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='accounting']" position="before">
+                    <field name="customer_rank" invisible="1"/>
+                    <field name="supplier_rank" invisible="1"/>
+                </xpath>
+                <xpath expr="//page[@name='accounting']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('customer_rank', '=', 0),('supplier_rank', '=', 0)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+<!--
+        <record model="ir.ui.view" id="account.partner_view_button_contracts_count">
+            <field name="name">partner.view.button.contracts_count</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority" eval="14"/>
+            <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="action"
+                            name="%(account.action_open_partner_analytic_accounts)d"
+                            groups="account.group_account_invoice"
+                            icon="fa-book" title="Analytic Accounts" attrs="{'invisible': [('customer_rank', '=', 0)]}">
+                        <field string="Analytic Accounts" name="contracts_count" widget="statinfo"/>
+                    </button>
+                </div>
+            </field>
+        </record>-->
+
+        <record id="payment.view_partners_form_payment_defaultcreditcard" model="ir.ui.view">
+            <field name="name">view.res.partner.form.payment.defaultcreditcard</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority" eval="15"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button type="action" class="oe_stat_button"
+                            icon="fa-credit-card-alt"
+                            name="%(payment.action_payment_token)d"
+                            context="{'search_default_partner_id': active_id}"
+                            attrs="{'invisible': [('customer_rank', '=', 0)]}">
+                        <div class="o_form_field o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="payment_token_count" widget="statinfo" nolabel="1"/>
+                            </span>
+                            <span class="o_stat_text">Credit card(s)</span>
+                        </div>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_reports.partner_view_buttons">
+            <field name="name">partner.view.buttons</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority" eval="13"/>
+            <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button type="object"
+                            class="oe_stat_button"
+                            id="partner_ledger_button"
+                            icon="fa-pencil-square-o"
+                            name="open_partner_ledger"
+                            context="{'default_partner_id': active_id}"
+                            attrs="{'invisible': [('customer_rank', '=', 0)]}">
+                        <span> Grand livre du client</span>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+        <record id="l10n_fr.res_partner_form_l10n_fr" model="ir.ui.view">
+            <field name="name">res.partner.form.l10n.fr</field>
+            <field name="model">res.partner</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='ref']" position="after">
+                        <field name="siret"
+                               attrs="{'required' : [('customer_rank', '>', 0)]}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="inherit_view_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='display_name']" position="before">
+                    <field name="id" string="Id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

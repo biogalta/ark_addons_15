@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//p[@id='fiscal_position_remark']" position="after">
+            <t t-if="doc.company_id.observation_machine">
+                <div style="border:1px solid black;padding:5px" t-if="doc.check_if_machine_exists()">
+                    <span t-field="doc.company_id.observation_machine"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="report_invoice_document_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@id='qrcode']" position="after">
+            <t t-if="o.company_id.observation_machine">
+                <div style="border:1px solid black;padding:5px" t-if="o.check_if_machine_exists()">
+                    <span t-field="o.company_id.observation_machine"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

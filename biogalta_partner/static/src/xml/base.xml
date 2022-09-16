@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+<t t-name="SearchView.extended_search.proposition">
+    <div role="menuitem" class="dropdown-item-text o_filter_condition">
+        <span class="o_or_filter">or</span>
+        <span>
+            <select class="o_input o_searchview_extended_prop_field">
+                <t t-foreach="widget.attrs.fields" t-as="field">
+                    <t t-if="field.name == 'field_name' and field.string == 'Est un commercialisateur'"></t>
+                    <t t-else="">
+                        <option t-att="{'selected': field === widget.attrs.selected ? 'selected' : null}" t-att-value="field.name">
+                            <t t-esc="field.string"/>
+                        </option>
+                    </t>
+                </t>
+            </select>
+            <span class="o_searchview_extended_delete_prop fa fa-trash-o" role="img" aria-label="Delete" title="Delete"/>
+        </span>
+        <select class="o_input o_searchview_extended_prop_op"/>
+        <span class="o_searchview_extended_prop_value"/>
+    </div>
+</t>
+</templates>

@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+
+        <template id="purchase_document_report_inherit" inherit_id="purchase.report_purchaseorder_document">
+             <xpath expr="//table[1]/thead/tr/th[1]" position="before">
+                <th class="text-left">Référence interne</th>
+            </xpath>
+
+            <xpath expr="//table[1]/tbody/t[2]/tr/t[1]/td[1]" position="before">
+
+                <td>
+                    <span t-field="line.product_id.default_code"/>
+                </td>
+            </xpath>
+
+            <xpath expr="//div[hasclass('page')]/div[1]" position="after">
+                 <br/> <br/>
+             </xpath>
+
+        </template>
+
+    </data>
+</odoo>

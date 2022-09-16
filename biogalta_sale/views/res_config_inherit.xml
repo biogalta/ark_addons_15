@@ -1,0 +1,36 @@
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sale1</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="11"/>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_settings_container')]" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <label for="observation_machine"/>
+                        <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                        <div class="text-muted">
+                            Show observation on orders if there is machine in order lines
+                        </div>
+                        <div class="content-group" >
+                            <div class="mt16">
+                                <field name="observation_machine" placeholder="Insert your observation here..."/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="prod_categ_form_inherit" model="ir.ui.view">
+        <field name="name">prod.categ.inherit1</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="type"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

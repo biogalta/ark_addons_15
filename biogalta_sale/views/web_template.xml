@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="biogalta_inherit_external_layout_standard" inherit_id="web.external_layout_standard">
+        <xpath expr="//img" position="replace">
+            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;width: 450px;"
+                 alt="Logo"/>
+        </xpath>
+    </template>
+</odoo>

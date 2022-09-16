@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="inherit_journal_form" model="ir.ui.view">
+            <field name="name">account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='refund_sequence']" position="replace">
+                    <field name="refund_sequence" required="0" attrs="{'readonly': 0}" groups="base.group_no_one"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

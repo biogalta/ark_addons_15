@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>      
+		<menuitem id="menu_finance_legal_statement" name="PDF Reports" 
+			parent="account.menu_finance_reports" sequence="99"/>
+		<menuitem id="menu_action_report_trial_balance"
+        name="Trial Balance"
+        parent="menu_finance_legal_statement"
+        action="account_reports.action_account_report_coa"/>
+        <menuitem id="menu_action_report_general_ledger"
+        name="General Ledger"
+        parent="menu_finance_legal_statement"
+        action="account_reports.action_account_report_general_ledger"/>
+        <menuitem id="menu_action_account_report_bs"
+        name="Bilan"
+        parent="menu_finance_legal_statement"
+        action="account_reports.action_account_report_bs"/>        
+        <menuitem id="menu_action_account_report_pnl"
+        name="Compte de resultat"
+        parent="menu_finance_legal_statement"
+        action="account_reports.action_account_report_pnl"/>                
+        <menuitem id="menu_action_account_report_partner_ledger1"
+        name="Partner Ledger"
+        parent="menu_finance_legal_statement"
+        action="account_reports.action_account_report_partner_ledger"/>                        
+        <menuitem id="menu_action_account_report_ar1"
+        name="Aged Partner Balance"
+        parent="menu_finance_legal_statement"
+        action="account_reports.action_account_report_ar"/>                                
+        <menuitem id="menu_action_account_print_journal_menu1"
+        name="Journals Audit"
+        parent="menu_finance_legal_statement"
+        action="account_reports.action_account_print_journal_menu"/>                                        
+        <menuitem id="menu_action_account_report_gt1"
+        name="Tax Report"
+        parent="menu_finance_legal_statement"
+        action="account_reports.action_account_report_gt"/>                                                
+    </data>
+</odoo>

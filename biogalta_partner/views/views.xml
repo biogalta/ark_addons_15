@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+
+
+
+
+        <menuitem id="biogalta_sub_menu_prospects"
+                  name="Prospects"
+                  action="biogalta_partner.biogalta_inherti_action_contacts_prospects"
+                  parent="contacts.menu_contacts"
+                  sequence="2"/>
+
+        <menuitem id="biogalta_sub_menu_customers"
+                  name="Customers"
+                  parent="contacts.menu_contacts"
+                  action="biogalta_partner.biogalta_inherti_action_contacts_customers"
+                  sequence="3"/>
+
+        <menuitem id="biogalta_sub_menu_promoters"
+                  name="Promoters"
+                  action="biogalta_partner.biogalta_inherti_action_contacts_promoter"
+                  parent="contacts.menu_contacts"
+                  sequence="4"/>
+                  
+         <menuitem id="biogalta_sub_commercials"
+                  name="Commerciaux"
+                  action="biogalta_partner.biogalta_inherit_action_contacts_commercial"
+                  parent="contacts.menu_contacts"
+                  sequence="5"/>
+                  
+         <menuitem id="contacts.res_partner_menu_config"
+                  name="Configuration"
+                  parent="contacts.menu_contacts"
+                  groups="base.group_system"
+                  sequence="10"/>
+    </data>
+</odoo>

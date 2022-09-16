@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_biogalta_sale_sale_order_tax,biogalta_sale.sale_order_tax,model_sale_order_tax,base.group_user,1,1,1,1
+access_biogalta_tax_account_invoice,biogalta_sale.tax_account_invoice,model_tax_account_invoice,base.group_user,1,1,1,1

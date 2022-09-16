@@ -1,0 +1,57 @@
+<odoo>
+    <data>
+        <record id="biogalta_inherit_view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="replace">
+                    <field name="partner_id" widget="res_partner_many2one"
+                           domain="['|', ('customer_rank','>',0), ('customer_rank', '=', 0), ('is_promoter', '=', False),('is_commercial', '=', False)]"
+                           context="{'search_default_customer_rank':1, 'show_address': 1, 'show_vat': True}"
+                           options='{"always_reload": True}'/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="id_contact"/>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="commercial_id"/>
+                    <field name="promoter_id"/>
+                </xpath>
+
+                <xpath expr="//group[@name='sale_total']" position="after">
+                    <field name="tax_orders_ids">
+                        <tree create="false" edit="false">
+                            <field name="tax_name"/>
+                            <field name="tax_value"/>
+                        </tree>
+                    </field>
+                </xpath>
+                <xpath expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='price_subtotal']"
+                       position="attributes">
+                    <attribute name="string">Montant HT dont eco-contribution</attribute>
+                </xpath>
+                <xpath expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_id']"
+                       position="after">
+                    <field name="default_code_product" readonly="1"/>
+                </xpath>
+                <xpath expr="//header/button[@name='action_cancel']" position="after">
+                    <button name="update_total" id="update_total" data-hotkey="u"
+                            string="Update total" class="btn-primary" type="object" invisible="1"/>
+                </xpath>
+                <xpath expr="//notebook/page[@name='order_lines']/group/group[2]" position="replace">
+                    <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                        <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="amount_total"/>
+                        </div>
+                        <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
