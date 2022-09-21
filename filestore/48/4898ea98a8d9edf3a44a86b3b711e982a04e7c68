@@ -1,0 +1,67 @@
+
+.o_kanban_view.o_kanban_ungrouped {
+  display: -webkit-box; display: -webkit-flex; display: flex;
+}
+
+.o_kanban_view.o_kanban_ungrouped .o_kanban_record {
+  width: 350px;
+}
+
+.o_kanban_view.o_kanban_dashboard .o_recruitment_kanban_boxes {
+  display: -webkit-box; display: -webkit-flex; display: flex;
+  -webkit-flex-flow: row nowrap; flex-flow: row nowrap;
+}
+
+.o_kanban_view.o_kanban_dashboard .o_recruitment_kanban_boxes .o_recruitment_kanban_box {
+  position: relative;
+  text-align: center;
+  padding: 0 0 0 0;
+  -webkit-box-flex: 1; -webkit-flex: 1 1 auto; flex: 1 1 auto;
+  display: -webkit-box; display: -webkit-flex; display: flex;
+  -webkit-flex-flow: row nowrap; flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.o_kanban_view.o_kanban_dashboard .o_recruitment_kanban_boxes .o_recruitment_kanban_box:first-child {
+  -webkit-box-pack: start; justify-content: flex-start;
+  padding-left: 16px;
+}
+
+.o_kanban_view.o_kanban_dashboard .o_recruitment_kanban_boxes .o_recruitment_kanban_box:last-child {
+  -webkit-box-pack: end; justify-content: flex-end;
+  padding-right: 16px;
+}
+
+.o_kanban_view.o_kanban_dashboard .o_recruitment_kanban_boxes .o_recruitment_kanban_box .o_value {
+  font-weight: 800;
+}
+
+.o_kanban_view.o_kanban_dashboard .o_recruitment_kanban_boxes .o_recruitment_kanban_box > a {
+  font-weight: 500;
+}
+
+.o_kanban_view.o_kanban_dashboard .o_recruitment_kanban_boxes .o_recruitment_kanban_box > a.o_needaction {
+  font-size: small;
+  font-weight: 400;
+  margin-left: 4px;
+  opacity: 0.5;
+}
+
+.o_kanban_view.o_kanban_dashboard .o_recruitment_kanban_boxes .o_recruitment_kanban_box > a.o_needaction:hover, .o_kanban_view.o_kanban_dashboard .o_recruitment_kanban_boxes .o_recruitment_kanban_box > a.o_needaction:focus, .o_kanban_view.o_kanban_dashboard .o_recruitment_kanban_boxes .o_recruitment_kanban_box > a.o_needaction.focus {
+  opacity: 1;
+}
+
+.o_kanban_view.o_kanban_dashboard .o_recruitment_kanban_boxes .o_recruitment_kanban_box > a.o_needaction:before {
+  content: "/ ";
+}
+
+.o_kanban_view.o_kanban_dashboard .o_recruitment_kanban_boxes .o_recruitment_kanban_box > a.o_needaction:after {
+  content: "\f086";
+  font: normal normal normal 14px/1 FontAwesome;
+}
+
+.o_kanban_view .oe_kanban_card .o_kanban_state_with_padding {
+  padding-left: 7%;
+  padding-bottom: 5%;
+}
+
