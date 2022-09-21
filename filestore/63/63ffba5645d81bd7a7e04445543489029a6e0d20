@@ -1,0 +1,698 @@
+
+.o_gantt_view .gantt_container .o_gantt_color0_5 {
+  background-color: rgba(244, 220, 169, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color0_5.gantt_task_inline_color {
+  border-color: rgba(244, 220, 169, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color0_4 {
+  background-color: rgba(244, 220, 169, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color0_4.gantt_task_inline_color {
+  border-color: rgba(244, 220, 169, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color0_3 {
+  background-color: rgba(244, 220, 169, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color0_3.gantt_task_inline_color {
+  border-color: rgba(244, 220, 169, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color0_2 {
+  background-color: rgba(244, 220, 169, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color0_2.gantt_task_inline_color {
+  border-color: rgba(244, 220, 169, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color0_1 {
+  background-color: rgba(244, 220, 169, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color0_1.gantt_task_inline_color {
+  border-color: rgba(244, 220, 169, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color0_0 {
+  background-color: #f4dca9;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color0_0.gantt_task_inline_color {
+  border-color: #f4dca9;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color1_5 {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color1_5.gantt_task_inline_color {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color1_4 {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color1_4.gantt_task_inline_color {
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color1_3 {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color1_3.gantt_task_inline_color {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color1_2 {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color1_2.gantt_task_inline_color {
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color1_1 {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color1_1.gantt_task_inline_color {
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color1_0 {
+  background-color: white;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color1_0.gantt_task_inline_color {
+  border-color: white;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color2_5 {
+  background-color: rgba(228, 215, 226, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color2_5.gantt_task_inline_color {
+  border-color: rgba(228, 215, 226, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color2_4 {
+  background-color: rgba(228, 215, 226, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color2_4.gantt_task_inline_color {
+  border-color: rgba(228, 215, 226, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color2_3 {
+  background-color: rgba(228, 215, 226, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color2_3.gantt_task_inline_color {
+  border-color: rgba(228, 215, 226, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color2_2 {
+  background-color: rgba(228, 215, 226, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color2_2.gantt_task_inline_color {
+  border-color: rgba(228, 215, 226, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color2_1 {
+  background-color: rgba(228, 215, 226, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color2_1.gantt_task_inline_color {
+  border-color: rgba(228, 215, 226, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color2_0 {
+  background-color: #e4d7e2;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color2_0.gantt_task_inline_color {
+  border-color: #e4d7e2;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color3_5 {
+  background-color: rgba(236, 233, 193, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color3_5.gantt_task_inline_color {
+  border-color: rgba(236, 233, 193, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color3_4 {
+  background-color: rgba(236, 233, 193, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color3_4.gantt_task_inline_color {
+  border-color: rgba(236, 233, 193, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color3_3 {
+  background-color: rgba(236, 233, 193, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color3_3.gantt_task_inline_color {
+  border-color: rgba(236, 233, 193, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color3_2 {
+  background-color: rgba(236, 233, 193, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color3_2.gantt_task_inline_color {
+  border-color: rgba(236, 233, 193, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color3_1 {
+  background-color: rgba(236, 233, 193, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color3_1.gantt_task_inline_color {
+  border-color: rgba(236, 233, 193, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color3_0 {
+  background-color: #ece9c1;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color3_0.gantt_task_inline_color {
+  border-color: #ece9c1;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color4_5 {
+  background-color: rgba(222, 225, 127, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color4_5.gantt_task_inline_color {
+  border-color: rgba(222, 225, 127, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color4_4 {
+  background-color: rgba(222, 225, 127, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color4_4.gantt_task_inline_color {
+  border-color: rgba(222, 225, 127, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color4_3 {
+  background-color: rgba(222, 225, 127, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color4_3.gantt_task_inline_color {
+  border-color: rgba(222, 225, 127, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color4_2 {
+  background-color: rgba(222, 225, 127, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color4_2.gantt_task_inline_color {
+  border-color: rgba(222, 225, 127, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color4_1 {
+  background-color: rgba(222, 225, 127, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color4_1.gantt_task_inline_color {
+  border-color: rgba(222, 225, 127, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color4_0 {
+  background-color: #dee17f;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color4_0.gantt_task_inline_color {
+  border-color: #dee17f;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color5_5 {
+  background-color: rgba(171, 212, 203, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color5_5.gantt_task_inline_color {
+  border-color: rgba(171, 212, 203, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color5_4 {
+  background-color: rgba(171, 212, 203, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color5_4.gantt_task_inline_color {
+  border-color: rgba(171, 212, 203, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color5_3 {
+  background-color: rgba(171, 212, 203, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color5_3.gantt_task_inline_color {
+  border-color: rgba(171, 212, 203, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color5_2 {
+  background-color: rgba(171, 212, 203, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color5_2.gantt_task_inline_color {
+  border-color: rgba(171, 212, 203, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color5_1 {
+  background-color: rgba(171, 212, 203, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color5_1.gantt_task_inline_color {
+  border-color: rgba(171, 212, 203, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color5_0 {
+  background-color: #abd4cb;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color5_0.gantt_task_inline_color {
+  border-color: #abd4cb;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color6_5 {
+  background-color: rgba(186, 228, 233, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color6_5.gantt_task_inline_color {
+  border-color: rgba(186, 228, 233, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color6_4 {
+  background-color: rgba(186, 228, 233, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color6_4.gantt_task_inline_color {
+  border-color: rgba(186, 228, 233, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color6_3 {
+  background-color: rgba(186, 228, 233, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color6_3.gantt_task_inline_color {
+  border-color: rgba(186, 228, 233, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color6_2 {
+  background-color: rgba(186, 228, 233, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color6_2.gantt_task_inline_color {
+  border-color: rgba(186, 228, 233, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color6_1 {
+  background-color: rgba(186, 228, 233, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color6_1.gantt_task_inline_color {
+  border-color: rgba(186, 228, 233, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color6_0 {
+  background-color: #bae4e9;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color6_0.gantt_task_inline_color {
+  border-color: #bae4e9;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color7_5 {
+  background-color: rgba(244, 220, 169, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color7_5.gantt_task_inline_color {
+  border-color: rgba(244, 220, 169, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color7_4 {
+  background-color: rgba(244, 220, 169, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color7_4.gantt_task_inline_color {
+  border-color: rgba(244, 220, 169, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color7_3 {
+  background-color: rgba(244, 220, 169, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color7_3.gantt_task_inline_color {
+  border-color: rgba(244, 220, 169, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color7_2 {
+  background-color: rgba(244, 220, 169, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color7_2.gantt_task_inline_color {
+  border-color: rgba(244, 220, 169, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color7_1 {
+  background-color: rgba(244, 220, 169, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color7_1.gantt_task_inline_color {
+  border-color: rgba(244, 220, 169, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color7_0 {
+  background-color: #f4dca9;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color7_0.gantt_task_inline_color {
+  border-color: #f4dca9;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color8_5 {
+  background-color: rgba(126, 99, 124, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color8_5.gantt_task_inline_color {
+  border-color: rgba(126, 99, 124, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color8_4 {
+  background-color: rgba(126, 99, 124, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color8_4.gantt_task_inline_color {
+  border-color: rgba(126, 99, 124, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color8_3 {
+  background-color: rgba(126, 99, 124, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color8_3.gantt_task_inline_color {
+  border-color: rgba(126, 99, 124, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color8_2 {
+  background-color: rgba(126, 99, 124, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color8_2.gantt_task_inline_color {
+  border-color: rgba(126, 99, 124, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color8_1 {
+  background-color: rgba(126, 99, 124, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color8_1.gantt_task_inline_color {
+  border-color: rgba(126, 99, 124, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color8_0 {
+  background-color: #7e637c;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color8_0.gantt_task_inline_color {
+  border-color: #7e637c;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color9_5 {
+  background-color: rgba(216, 197, 213, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color9_5.gantt_task_inline_color {
+  border-color: rgba(216, 197, 213, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color9_4 {
+  background-color: rgba(216, 197, 213, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color9_4.gantt_task_inline_color {
+  border-color: rgba(216, 197, 213, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color9_3 {
+  background-color: rgba(216, 197, 213, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color9_3.gantt_task_inline_color {
+  border-color: rgba(216, 197, 213, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color9_2 {
+  background-color: rgba(216, 197, 213, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color9_2.gantt_task_inline_color {
+  border-color: rgba(216, 197, 213, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color9_1 {
+  background-color: rgba(216, 197, 213, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color9_1.gantt_task_inline_color {
+  border-color: rgba(216, 197, 213, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color9_0 {
+  background-color: #d8c5d5;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color9_0.gantt_task_inline_color {
+  border-color: #d8c5d5;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color10_5 {
+  background-color: rgba(71, 194, 102, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color10_5.gantt_task_inline_color {
+  border-color: rgba(71, 194, 102, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color10_4 {
+  background-color: rgba(71, 194, 102, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color10_4.gantt_task_inline_color {
+  border-color: rgba(71, 194, 102, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color10_3 {
+  background-color: rgba(71, 194, 102, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color10_3.gantt_task_inline_color {
+  border-color: rgba(71, 194, 102, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color10_2 {
+  background-color: rgba(71, 194, 102, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color10_2.gantt_task_inline_color {
+  border-color: rgba(71, 194, 102, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color10_1 {
+  background-color: rgba(71, 194, 102, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color10_1.gantt_task_inline_color {
+  border-color: rgba(71, 194, 102, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_color10_0 {
+  background-color: #47c266;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color10_0.gantt_task_inline_color {
+  border-color: #47c266;
+}
+
+.o_gantt_view .gantt_container .o_gantt_colorgreen_5 {
+  background-color: rgba(0, 128, 0, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_colorgreen_5.gantt_task_inline_color {
+  border-color: rgba(0, 128, 0, 0.5);
+}
+
+.o_gantt_view .gantt_container .o_gantt_colorgreen_4 {
+  background-color: rgba(0, 128, 0, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_colorgreen_4.gantt_task_inline_color {
+  border-color: rgba(0, 128, 0, 0.6);
+}
+
+.o_gantt_view .gantt_container .o_gantt_colorgreen_3 {
+  background-color: rgba(0, 128, 0, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_colorgreen_3.gantt_task_inline_color {
+  border-color: rgba(0, 128, 0, 0.7);
+}
+
+.o_gantt_view .gantt_container .o_gantt_colorgreen_2 {
+  background-color: rgba(0, 128, 0, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_colorgreen_2.gantt_task_inline_color {
+  border-color: rgba(0, 128, 0, 0.8);
+}
+
+.o_gantt_view .gantt_container .o_gantt_colorgreen_1 {
+  background-color: rgba(0, 128, 0, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_colorgreen_1.gantt_task_inline_color {
+  border-color: rgba(0, 128, 0, 0.9);
+}
+
+.o_gantt_view .gantt_container .o_gantt_colorgreen_0 {
+  background-color: green;
+}
+
+.o_gantt_view .gantt_container .o_gantt_colorgreen_0.gantt_task_inline_color {
+  border-color: green;
+}
+
+.o_gantt_view .gantt_container .o_gantt_color_transparent {
+  background-color: "transparent";
+}
+
+.o_gantt_view .gantt_container .o_gantt_color_red {
+  background-color: #CB1C1C;
+}
+
+.o_gantt_view .gantt_container .gantt_task_line {
+  border: 0px;
+}
+
+.o_gantt_view .gantt_container .gantt_task_line.has_child .gantt_task_drag.task_right, .o_gantt_view .gantt_container .gantt_task_line.has_child .gantt_task_drag.task_left {
+  display: none;
+}
+
+.o_gantt_view .gantt_container .gantt_task_line.consolidation.has_child {
+  background-color: transparent;
+  height: 30px !important;
+  line-height: 30px !important;
+  border-radius: 0px;
+  border: none;
+  cursor: default;
+  pointer-events: none;
+}
+
+.o_gantt_view .gantt_container .gantt_task_line.consolidation.has_child .inside_task_bar {
+  position: absolute;
+  text-align: left;
+  color: black;
+  height: 100%;
+  margin-top: -2px;
+  overflow: hidden;
+}
+
+.o_gantt_view .gantt_container .gantt_task_line.consolidation.has_child .inside_task_bar.exclude {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxwb2x5Z29uIG9wYWNpdHk9Ii44IiBmaWxsPSIjRDEyMDI3IiBwb2ludHM9IjAsOCA4LDAgNiwwIC0yLDgiLz48cG9seWdvbiBvcGFjaXR5PSIuOCIgZmlsbD0iI0QxMjAyNyIgcG9pbnRzPSI1LDExIDEzLDMgMTEsMyAzLDExIi8+PC9zdmc+");
+}
+
+.o_gantt_view .gantt_container .gantt_task_line.is_leaf {
+  height: 20px !important;
+  line-height: 20px !important;
+  margin-top: 2px;
+  border: 0px;
+}
+
+.o_gantt_view .gantt_container .gantt_task_line.is_leaf .gantt_task_content {
+  color: black;
+  padding-left: 4px;
+  text-align: left;
+}
+
+.o_gantt_view .gantt_container .gantt_task_line .gantt_task_content {
+  overflow: visible !important;
+}
+
+.o_gantt_view .gantt_container .gantt_task_line .half_opacity {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.o_gantt_view .gantt_container .gantt_task_line .gantt_task_progress {
+  background: transparent;
+}
+
+.o_gantt_view .gantt_container .gantt_task_line.gantt_dependent_task {
+  display: none;
+}
+
+.o_gantt_view .today {
+  background: #FAF989;
+}
+
+.o_gantt_view .gantt_task_row .gantt_task_cell {
+  cursor: cell;
+}
+
+.o_gantt_view .gantt_task_row.level_0, .o_gantt_view .gantt_task_row.level_0.odd {
+  background-color: #f2f2f2;
+}
+
+.o_gantt_view .gantt_task_row.level_0.gantt_selected, .o_gantt_view .gantt_task_row.level_0.odd.gantt_selected {
+  background-color: #fff3a1;
+}
+
+.o_gantt_view .gantt_task_row.level_1, .o_gantt_view .gantt_task_row.level_1.odd {
+  background-color: #f9f9f9;
+}
+
+.o_gantt_view .gantt_task_row.level_1.gantt_selected, .o_gantt_view .gantt_task_row.level_1.odd.gantt_selected {
+  background-color: #fff3a1;
+}
+
+.o_gantt_button_dates {
+  display: inline-block;
+}
+
+@media (max-width: 767.98px) {
+  .gantt_grid {
+    width: 40% !important;
+  }
+  .gantt_task {
+    width: 60% !important;
+    overflow-x: scroll !important;
+  }
+  .gantt_hor_scroll {
+    display: none !important;
+  }
+  .gantt_grid_scale, .gantt_grid_head_cell, .gantt_grid_data, .gantt_cell {
+    width: 100% !important;
+  }
+  .dropdown_gantt_content {
+    text-transform: uppercase;
+  }
+  .gantt_tree_content {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 80%;
+  }
+}
+
