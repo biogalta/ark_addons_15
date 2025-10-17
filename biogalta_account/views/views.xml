@@ -1,6 +1,7 @@
 <odoo>
   <data>
-     <record id="action_account_report_coa_regrouped" model="ir.actions.client">
+     <!-- TODO: Rewrite for Odoo 18 accounting report architecture -->
+     <!-- <record id="action_account_report_coa_regrouped" model="ir.actions.client">
             <field name="name">General Balance Biogalta</field>
             <field name="tag">account_report</field>
             <field name="context" eval="{'model': 'account.coa.report.global'}" />
@@ -8,13 +9,13 @@
 
     <menuitem id="menu_action_account_report_coa_regrouped" name="General Balance Biogalta"
               action="action_account_report_coa_regrouped" parent="account_reports.account_reports_audit_reports_menu"
-              groups="account.group_account_user"/>
+              groups="account.group_account_user"/> -->
 
       <record id="account.view_move_tree" model="ir.ui.view">
             <field name="name">account.move.tree</field>
             <field name="model">account.move</field>
             <field name="arch" type="xml">
-                <tree decoration-info="state == 'draft'" string="Journal Entries">
+                <list decoration-info="state == 'draft'" string="Journal Entries">
                     <field name="date"/>
                     <field name="name"/>
                     <field name="partner_id"/>
@@ -23,7 +24,7 @@
                     <field name="amount_total"/>
                     <field name="state"/>
                     <field name="currency_id" invisible="1"/>
-                </tree>
+                </list>
             </field>
         </record>
       <record id="account.action_move_journal_line" model="ir.actions.act_window">

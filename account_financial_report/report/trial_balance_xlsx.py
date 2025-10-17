@@ -17,7 +17,7 @@ class TrialBalanceXslx(models.AbstractModel):
         report_name = _("Trial Balance")
         if company_id:
             company = self.env["res.company"].browse(company_id)
-            suffix = " - {} - {}".format(company.name, company.currency_id.name)
+            suffix = f" - {company.name} - {company.currency_id.name}"
             report_name = report_name + suffix
         return report_name
 
@@ -60,19 +60,12 @@ class TrialBalanceXslx(models.AbstractModel):
             if report.foreign_currency:
                 foreign_currency = {
                     7: {
-                        "header": _("Cur."),
-                        "field": "currency_id",
-                        "field_currency_balance": "currency_id",
-                        "type": "many2one",
-                        "width": 7,
-                    },
-                    8: {
                         "header": _("Initial balance"),
                         "field": "initial_currency_balance",
                         "type": "amount_currency",
                         "width": 14,
                     },
-                    9: {
+                    8: {
                         "header": _("Ending balance"),
                         "field": "ending_currency_balance",
                         "type": "amount_currency",
@@ -118,19 +111,12 @@ class TrialBalanceXslx(models.AbstractModel):
             if report.foreign_currency:
                 foreign_currency = {
                     6: {
-                        "header": _("Cur."),
-                        "field": "currency_id",
-                        "field_currency_balance": "currency_id",
-                        "type": "many2one",
-                        "width": 7,
-                    },
-                    7: {
                         "header": _("Initial balance"),
                         "field": "initial_currency_balance",
                         "type": "amount_currency",
                         "width": 14,
                     },
-                    8: {
+                    7: {
                         "header": _("Ending balance"),
                         "field": "ending_currency_balance",
                         "type": "amount_currency",
@@ -180,38 +166,51 @@ class TrialBalanceXslx(models.AbstractModel):
             "report.account_financial_report.trial_balance"
         ]._get_report_values(report, data)
         trial_balance = res_data["trial_balance"]
+        trial_balance_grouped = res_data["trial_balance_grouped"]
         total_amount = res_data["total_amount"]
+        total_amount_grouped = res_data["total_amount_grouped"]
         partners_data = res_data["partners_data"]
         accounts_data = res_data["accounts_data"]
-        hierarchy_on = res_data["hierarchy_on"]
+        show_hierarchy = res_data["show_hierarchy"]
         show_partner_details = res_data["show_partner_details"]
         show_hierarchy_level = res_data["show_hierarchy_level"]
         foreign_currency = res_data["foreign_currency"]
         limit_hierarchy_level = res_data["limit_hierarchy_level"]
+        hide_parent_hierarchy_level = res_data["hide_parent_hierarchy_level"]
+        grouped_by = res_data["grouped_by"]
         if not show_partner_details:
-            # Display array header for account lines
-            self.write_array_header(report_data)
-
-        # For each account
-        if not show_partner_details:
-            for balance in trial_balance:
-                if hierarchy_on == "relation":
-                    if limit_hierarchy_level:
-                        if show_hierarchy_level > balance["level"]:
+            if grouped_by:
+                # For each grouped
+                for grouped_item in trial_balance_grouped:
+                    self.write_array_title(grouped_item["name"], report_data)
+                    # Display array header for account lines
+                    self.write_array_header(report_data)
+                    # For each account
+                    for balance in grouped_item["account_data"]:
+                        self.write_line_from_dict(balance, report_data)
+                    # Footer with totals
+                    grouped_item["code"] = ""
+                    grouped_item["currency_id"] = False
+                    self.write_account_footer(grouped_item, _("Total"), report_data)
+                    report_data["row_pos"] += 1
+                # Last line with totals
+                total_amount_grouped["currency_id"] = False
+                total_amount_grouped["code"] = ""
+                self.write_account_footer(total_amount_grouped, _("TOTAL"), report_data)
+            else:
+                # Display array header for account lines
+                self.write_array_header(report_data)
+                # For each account
+                for balance in trial_balance:
+                    if show_hierarchy and limit_hierarchy_level:
+                        if show_hierarchy_level > balance["level"] and (
+                            not hide_parent_hierarchy_level
+                            or (show_hierarchy_level - 1) == balance["level"]
+                        ):
                             # Display account lines
                             self.write_line_from_dict(balance, report_data)
                     else:
                         self.write_line_from_dict(balance, report_data)
-                elif hierarchy_on == "computed":
-                    if balance["type"] == "account_type":
-                        if limit_hierarchy_level:
-                            if show_hierarchy_level > balance["level"]:
-                                # Display account lines
-                                self.write_line_from_dict(balance, report_data)
-                        else:
-                            self.write_line_from_dict(balance, report_data)
-                else:
-                    self.write_line_from_dict(balance, report_data)
         else:
             for account_id in total_amount:
                 # Write account title
@@ -278,7 +277,7 @@ class TrialBalanceXslx(models.AbstractModel):
             line_object.currency_id = line_object.report_account_id.currency_id
         elif type_object == "account":
             line_object.currency_id = line_object.currency_id
-        return super(TrialBalanceXslx, self).write_line(line_object, report_data)
+        return super().write_line(line_object, report_data)
 
     def write_account_footer(self, account, name_value, report_data):
         """Specific function to write account footer for Trial Balance"""

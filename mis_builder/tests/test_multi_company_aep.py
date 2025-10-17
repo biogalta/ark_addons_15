@@ -4,7 +4,7 @@
 import datetime
 
 import odoo.tests.common as common
-from odoo import fields
+from odoo import Command, fields
 from odoo.tools.safe_eval import safe_eval
 
 from ..models.accounting_none import AccountingNone
@@ -35,8 +35,6 @@ class TestMultiCompanyAEP(common.TransactionCase):
             {"name": "CYUSD", "currency_id": self.usd.id}
         )
         self.env["res.currency.rate"].search([]).unlink()
-        type_ar = self.browse_ref("account.data_account_type_receivable")
-        type_in = self.browse_ref("account.data_account_type_revenue")
         for company, divider in [(self.company_eur, 1.0), (self.company_usd, 2.0)]:
             # create receivable bs account
             company_key = company.name
@@ -45,10 +43,10 @@ class TestMultiCompanyAEP(common.TransactionCase):
                 "account_ar_" + company_key,
                 self.account_model.create(
                     {
-                        "company_id": company.id,
+                        "company_ids": [Command.link(company.id)],
                         "code": "400AR",
                         "name": "Receivable",
-                        "user_type_id": type_ar.id,
+                        "account_type": "asset_receivable",
                         "reconcile": True,
                     }
                 ),
@@ -59,10 +57,10 @@ class TestMultiCompanyAEP(common.TransactionCase):
                 "account_in_" + company_key,
                 self.account_model.create(
                     {
-                        "company_id": company.id,
+                        "company_ids": [Command.link(company.id)],
                         "code": "700IN",
                         "name": "Income",
-                        "user_type_id": type_in.id,
+                        "account_type": "income",
                     }
                 ),
             )

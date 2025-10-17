@@ -34,20 +34,20 @@ class InheritAccountInvoice(models.Model):
             move.subtotal_eco = str(fmt(round(float(sub), 2)))
 
     @api.depends(
-        'line_ids.matched_debit_ids.debit_move_id.move_id.payment_id.is_matched',
+        'line_ids.matched_debit_ids.debit_move_id.move_id.origin_payment_id.is_matched',  
         'line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual',
         'line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual_currency',
-        'line_ids.matched_credit_ids.credit_move_id.move_id.payment_id.is_matched',
+        'line_ids.matched_credit_ids.credit_move_id.move_id.origin_payment_id.is_matched',
         'line_ids.matched_credit_ids.credit_move_id.move_id.line_ids.amount_residual',
         'line_ids.matched_credit_ids.credit_move_id.move_id.line_ids.amount_residual_currency',
-        'line_ids.debit',
-        'line_ids.credit',
+        'line_ids.balance',
         'line_ids.currency_id',
         'line_ids.amount_currency',
         'line_ids.amount_residual',
         'line_ids.amount_residual_currency',
         'line_ids.payment_id.state',
-        'line_ids.full_reconcile_id')
+        'line_ids.full_reconcile_id',
+        'state')
     def _compute_amount(self):
         res = super(InheritAccountInvoice, self)._compute_amount()
         for invoice in self:
@@ -329,7 +329,7 @@ class InheritAccountInvoice(models.Model):
     def action_post(self):
         res = super(InheritAccountInvoice, self).action_post()
         #update serial number invoiced status
-        StockProductionLot = self.env['stock.production.lot']
+        StockProductionLot = self.env['stock.lot']
         for line in self.invoice_line_ids:
             if line.serial_num:
                 lot_id = StockProductionLot.search([('name','=',line.serial_num)])
@@ -388,7 +388,7 @@ class InheritAccountInvoiceLine(models.Model):
             rec.serial_num = ' - '.join(new_lot)
 
     def _check_facturation(self, lot_):
-        StockProductionLot = self.env['stock.production.lot']
+        StockProductionLot = self.env['stock.lot']
         for lot in lot_:
             lot_exists = StockProductionLot.search([('name','=',lot)], limit=1)
             if lot_exists and lot_exists.invoiced_lot:

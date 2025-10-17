@@ -46,7 +46,7 @@ class InheritSaleOrderLine(models.Model):
 class InheritSaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    tax_orders_ids = fields.Many2many('sale.order.tax', string="TVA", compute='_amount_by_group')
+    tax_orders_ids = fields.One2many('sale.order.tax', 'order_id', string="TVA", compute='_amount_by_group')
     id_contact = fields.Integer(related='partner_id.id', string="Id")
     amount_by_group = fields.Binary(string="Tax amount by group", compute='_amount_by_group',
                                     help="type: [(name, amount, base, formated amount, formated base)]")

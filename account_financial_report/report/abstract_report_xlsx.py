@@ -75,9 +75,7 @@ class AbstractReportXslx(models.AbstractModel):
                 {"bold": True, "border": True, "bg_color": "#FFFFCC"}
             ),
             "format_amount": workbook.add_format(),
-            "format_amount_bold": workbook.add_format({"bold": True}).set_num_format(
-                "#,##0." + "0" * currency_id.decimal_places
-            ),
+            "format_amount_bold": workbook.add_format({"bold": True}),
             "format_percent_bold_italic": workbook.add_format(
                 {"bold": True, "italic": True}
             ),
@@ -89,6 +87,9 @@ class AbstractReportXslx(models.AbstractModel):
             "#,##0." + "0" * currency_id.decimal_places
         )
         report_data["formats"]["format_percent_bold_italic"].set_num_format("#,##0.00%")
+        report_data["formats"]["format_amount_bold"].set_num_format(
+            "#,##0." + "0" * currency_id.decimal_places
+        )
 
     def _set_column_width(self, report_data):
         """Set width for all defined columns.
@@ -238,10 +239,7 @@ class AbstractReportXslx(models.AbstractModel):
             value = line_dict.get(column["field"], False)
             cell_type = column.get("type", "string")
             if cell_type == "string":
-                if (
-                    line_dict.get("account_group_id", False)
-                    and line_dict["account_group_id"]
-                ):
+                if line_dict.get("type", "") == "group_type":
                     report_data["sheet"].write_string(
                         report_data["row_pos"],
                         col_pos,
@@ -284,6 +282,8 @@ class AbstractReportXslx(models.AbstractModel):
                     value or "",
                     report_data["formats"]["format_right"],
                 )
+            else:
+                self.write_non_standard_column(cell_type, col_pos, value)
         report_data["row_pos"] += 1
 
     def write_initial_balance(self, my_object, label, report_data):
@@ -496,7 +496,7 @@ class AbstractReportXslx(models.AbstractModel):
                         report_data["formats"]["format_header_amount"],
                     )
                 elif cell_type == "amount_currency":
-                    if my_object["currency_id"] and value:
+                    if my_object["currency_id"]:
                         format_amt = self._get_currency_amt_format_dict(
                             my_object, report_data
                         )
@@ -532,16 +532,17 @@ class AbstractReportXslx(models.AbstractModel):
             format_amt = report_data["formats"]["format_amount"]
             field_prefix = "format_amount"
         if "currency_id" in line_object and line_object.get("currency_id", False):
-            field_name = "{}_{}".format(field_prefix, line_object["currency_id"].name)
+            if isinstance(line_object["currency_id"], int):
+                currency = self.env["res.currency"].browse(line_object["currency_id"])
+            else:
+                currency = line_object["currency_id"]
+            field_name = f"{field_prefix}_{currency.name}"
             if hasattr(self, field_name):
                 format_amt = getattr(self, field_name)
             else:
                 format_amt = report_data["workbook"].add_format()
                 report_data["field_name"] = format_amt
-                format_amount = "#,##0." + (
-                    "0" * line_object["currency_id"].decimal_places
-                )
-                format_amt.set_num_format(format_amount)
+                format_amt.set_num_format(self._report_xlsx_currency_format(currency))
         return format_amt
 
     def _get_currency_amt_format_dict(self, line_dict, report_data):
@@ -557,21 +558,20 @@ class AbstractReportXslx(models.AbstractModel):
                 currency = self.env["res.currency"].browse(line_dict["currency_id"])
             else:
                 currency = line_dict["currency_id"]
-            field_name = "{}_{}".format(field_prefix, currency.name)
+            field_name = f"{field_prefix}_{currency.name}"
             if hasattr(self, field_name):
                 format_amt = getattr(self, field_name)
             else:
                 format_amt = report_data["workbook"].add_format()
                 report_data["field_name"] = format_amt
-                format_amount = "#,##0." + ("0" * currency.decimal_places)
-                format_amt.set_num_format(format_amount)
+                format_amt.set_num_format(self._report_xlsx_currency_format(currency))
         return format_amt
 
     def _get_currency_amt_header_format(self, line_object, report_data):
         """Return amount header format for each currency."""
         format_amt = report_data["formats"]["format_header_amount"]
         if line_object.currency_id:
-            field_name = "format_header_amount_%s" % line_object.currency_id.name
+            field_name = f"format_header_amount_{line_object.currency_id.name}"
             if hasattr(self, field_name):
                 format_amt = getattr(self, field_name)
             else:
@@ -589,7 +589,7 @@ class AbstractReportXslx(models.AbstractModel):
         """Return amount header format for each currency."""
         format_amt = report_data["formats"]["format_header_amount"]
         if line_object["currency_id"]:
-            field_name = "format_header_amount_%s" % line_object["currency_name"]
+            field_name = f"format_header_amount_{line_object['currency_name']}"
             if hasattr(self, field_name):
                 format_amt = getattr(self, field_name)
             else:
@@ -597,9 +597,8 @@ class AbstractReportXslx(models.AbstractModel):
                     {"bold": True, "border": True, "bg_color": "#FFFFCC"}
                 )
                 report_data["field_name"] = format_amt
-                format_amount = "#,##0." + (
-                    "0" * line_object["currency_id"].decimal_places
-                )
+                currency = self.env["res.currency"].browse(line_object["currency_id"])
+                format_amount = "#,##0." + ("0" * currency.decimal_places)
                 format_amt.set_num_format(format_amount)
         return format_amt
 
@@ -611,8 +610,8 @@ class AbstractReportXslx(models.AbstractModel):
 
     def _get_report_complete_name(self, report, prefix, data=None):
         if report.company_id:
-            suffix = " - {} - {}".format(
-                report.company_id.name, report.company_id.currency_id.name
+            suffix = (
+                f" - {report.company_id.name} - {report.company_id.currency_id.name}"
             )
             return prefix + suffix
         return prefix
@@ -688,5 +687,11 @@ class AbstractReportXslx(models.AbstractModel):
     def _get_col_pos_final_balance_label(self):
         """
         :return: the columns position used for final balance label.
+        """
+        raise NotImplementedError()
+
+    def write_non_standard_column(self, cell_type, col_pos, value):
+        """
+        Write columns out of the columns type defined here.
         """
         raise NotImplementedError()

@@ -19,14 +19,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/wizard/open_tax_balances.py:0
-#, python-format
 msgid "%(name)s: %(target)s from %(from)s to %(to)s"
 msgstr ""
 
 #. module: account_tax_balance
 #: model_terms:ir.ui.view,arch_db:account_tax_balance.view_tax_search_balance
-#: model_terms:ir.ui.view,arch_db:account_tax_balance.view_tax_tree_balance
 msgid "Account Tax"
 msgstr "Steuerkonto"
 
@@ -93,9 +92,6 @@ msgid "Date Range"
 msgstr "Zeitraum"
 
 #. module: account_tax_balance
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_move__display_name
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_move_line__display_name
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_tax__display_name
 #: model:ir.model.fields,field_description:account_tax_balance.field_wizard_open_tax_balances__display_name
 msgid "Display Name"
 msgstr "Anzeigebezeichnung"
@@ -103,8 +99,12 @@ msgstr "Anzeigebezeichnung"
 #. module: account_tax_balance
 #: model:ir.model.fields,field_description:account_tax_balance.field_account_bank_statement_line__financial_type
 #: model:ir.model.fields,field_description:account_tax_balance.field_account_move__financial_type
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_payment__financial_type
 msgid "Financial Type"
+msgstr ""
+
+#. module: account_tax_balance
+#: model_terms:ir.ui.view,arch_db:account_tax_balance.view_account_move_filter
+msgid "Financial type"
 msgstr ""
 
 #. module: account_tax_balance
@@ -124,9 +124,6 @@ msgid "Has balance in period"
 msgstr "Hat Saldo in Periode"
 
 #. module: account_tax_balance
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_move__id
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_move_line__id
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_tax__id
 #: model:ir.model.fields,field_description:account_tax_balance.field_wizard_open_tax_balances__id
 msgid "ID"
 msgstr "ID"
@@ -142,14 +139,6 @@ msgid "Journal Item"
 msgstr "Journalposten"
 
 #. module: account_tax_balance
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_move____last_update
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_move_line____last_update
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_tax____last_update
-#: model:ir.model.fields,field_description:account_tax_balance.field_wizard_open_tax_balances____last_update
-msgid "Last Modified on"
-msgstr "Zuletzt modifiziert am"
-
-#. module: account_tax_balance
 #: model:ir.model.fields,field_description:account_tax_balance.field_wizard_open_tax_balances__write_uid
 msgid "Last Updated by"
 msgstr "Zuletzt aktualisiert durch"
@@ -160,15 +149,10 @@ msgid "Last Updated on"
 msgstr "Zuletzt aktualisiert am"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/models/account_move.py:0
-#, python-format
 msgid "Liquidity"
 msgstr "Liquidität"
-
-#. module: account_tax_balance
-#: model_terms:ir.ui.view,arch_db:account_tax_balance.view_account_move_filter
-msgid "Move type"
-msgstr "Buchungsart"
 
 #. module: account_tax_balance
 #: model_terms:ir.ui.view,arch_db:account_tax_balance.wizard_open_tax_balances
@@ -176,32 +160,32 @@ msgid "Open Taxes"
 msgstr "Offene Steuern"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/models/account_move.py:0
-#, python-format
 msgid "Other"
 msgstr "Andere"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/models/account_move.py:0
-#, python-format
 msgid "Payable"
 msgstr "Verbindlichkeit"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/models/account_move.py:0
-#, python-format
 msgid "Payable refund"
 msgstr "Verbindlichkeitserstattung"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/models/account_move.py:0
-#, python-format
 msgid "Receivable"
 msgstr "Forderung"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/models/account_move.py:0
-#, python-format
 msgid "Receivable refund"
 msgstr "Forderungserstattung"
 
@@ -261,8 +245,8 @@ msgid "Total Base Balance"
 msgstr "Gesamtbasissumme"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/models/account_tax.py:0
-#, python-format
 msgid "Unsupported search operator"
 msgstr "Nicht unterstützter Operator"
 
@@ -306,6 +290,12 @@ msgstr "wizard.open.tax.balances"
 #: model_terms:ir.ui.view,arch_db:account_tax_balance.wizard_open_tax_balances
 msgid "or"
 msgstr "oder"
+
+#~ msgid "Move type"
+#~ msgstr "Buchungsart"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Zuletzt modifiziert am"
 
 #, fuzzy
 #~ msgid "Journal Entries"

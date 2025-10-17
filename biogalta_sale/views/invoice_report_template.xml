@@ -172,51 +172,49 @@
             </t>
             <br/>
         </xpath>
-        <xpath expr="//div[@class='clearfix']" position="replace">
-            <div class="clearfix">
-                <div id="total" class="row">
-                    <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
-                        <table class="table table-sm" style="page-break-inside: avoid;">
+        <xpath expr="//div[@id='total']" position="replace">
+            <div id="total" class="clearfix row">
+                <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
+                    <table class="table table-sm" style="page-break-inside: avoid;">
 
-                            <!--Tax totals-->
-                            <t t-set="tax_totals" t-value="json.loads(o.tax_totals_json)"/>
-                            <t t-call="account.document_tax_totals"/>
-                            <!--Payments-->
-                            <t t-if="print_with_payments">
-                                <t t-if="o.payment_state != 'invoicing_legacy'">
-                                    <t t-set="payments_vals" t-value="o.sudo()._get_reconciled_info_JSON_values()"/>
-                                    <t t-foreach="payments_vals" t-as="payment_vals">
-                                        <tr>
-                                            <td>
-                                                <i class="oe_form_field text-right oe_payment_label">Payé le
-                                                    <t t-esc="payment_vals['date']" t-options='{"widget": "date"}'/>
-                                                </i>
-                                            </td>
-                                            <td class="text-right">
-                                                <span t-esc="payment_vals['amount']"
-                                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                            </td>
-                                        </tr>
-                                    </t>
-                                    <t t-if="len(payments_vals) > 0">
-                                        <tr class="border-black o_total">
-                                            <td>
-                                                <strong>Montant dû</strong>
-                                            </td>
-                                            <td class="text-right">
-                                                <span t-field="o.amount_residual"/>
-                                            </td>
-                                        </tr>
-                                    </t>
+                        <!--Tax totals-->
+                        <t t-set="tax_totals" t-value="json.loads(o.tax_totals_json)"/>
+                        <t t-call="biogalta_sale.biogalta_document_tax_totals"/>
+                        <!--Payments-->
+                        <t t-if="print_with_payments">
+                            <t t-if="o.payment_state != 'invoicing_legacy'">
+                                <t t-set="payments_vals" t-value="o.sudo()._get_reconciled_info_JSON_values()"/>
+                                <t t-foreach="payments_vals" t-as="payment_vals">
+                                    <tr>
+                                        <td>
+                                            <i class="oe_form_field text-right oe_payment_label">Payé le
+                                                <t t-esc="payment_vals['date']" t-options='{"widget": "date"}'/>
+                                            </i>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="payment_vals['amount']"
+                                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="len(payments_vals) > 0">
+                                    <tr class="border-black o_total">
+                                        <td>
+                                            <strong>Montant dû</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.amount_residual"/>
+                                        </td>
+                                    </tr>
                                 </t>
                             </t>
-                        </table>
-                    </div>
+                        </t>
+                    </table>
                 </div>
             </div>
         </xpath>
     </template>
-    <template id="account.document_tax_totals">
+    <template id="biogalta_document_tax_totals">
         <t t-foreach="tax_totals['subtotals']" t-as="subtotal">
             <tr class="border-black o_subtotal">
                 <td>
@@ -231,7 +229,7 @@
             </tr>
 
             <t t-set="subtotal_to_show" t-value="subtotal['name']"/>
-            <t t-call="account.tax_groups_totals"/>
+            <t t-call="biogalta_sale.biogalta_tax_groups_totals"/>
         </t>
 
         <!--Total amount with all taxes-->
@@ -262,15 +260,9 @@
                     </tr>
                 </t>
             </t>
-<!--            <td style="background-color:#d3d4d5;">
-                <strong style="color:black;">Dont éco-contribution TTC</strong>
-            </td>
-            <td class="text-right" style="background-color:#d3d4d5;">
-                <span t-esc="eco_values" style="color:black;"/>
-            </td>-->
         </tr>
     </template>
-    <template id="account.tax_groups_totals">
+    <template id="biogalta_tax_groups_totals">
         <t t-foreach="tax_totals['groups_by_subtotal'][subtotal_to_show]" t-as="amount_by_group">
             <t t-if="amount_by_group['tax_group_name'].find('Eco')==-1">
                 <tr>

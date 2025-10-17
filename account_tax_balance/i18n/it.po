@@ -9,25 +9,24 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-28 10:11+0000\n"
-"PO-Revision-Date: 2021-12-03 12:36+0000\n"
-"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"PO-Revision-Date: 2025-09-08 10:43+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/wizard/open_tax_balances.py:0
-#, python-format
 msgid "%(name)s: %(target)s from %(from)s to %(to)s"
 msgstr "%(name)s: %(target)s da %(from)s a %(to)s"
 
 #. module: account_tax_balance
 #: model_terms:ir.ui.view,arch_db:account_tax_balance.view_tax_search_balance
-#: model_terms:ir.ui.view,arch_db:account_tax_balance.view_tax_tree_balance
 msgid "Account Tax"
 msgstr "Imposta contabile"
 
@@ -39,7 +38,7 @@ msgstr "Tutte le registrazioni"
 #. module: account_tax_balance
 #: model:ir.model.fields.selection,name:account_tax_balance.selection__wizard_open_tax_balances__target_move__posted
 msgid "All Posted Entries"
-msgstr "Tutte le registrazioni generate"
+msgstr "Tutte le registrazioni confermate"
 
 #. module: account_tax_balance
 #: model:ir.model.fields,field_description:account_tax_balance.field_account_tax__balance_regular
@@ -92,9 +91,6 @@ msgid "Date Range"
 msgstr "Intervallo date"
 
 #. module: account_tax_balance
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_move__display_name
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_move_line__display_name
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_tax__display_name
 #: model:ir.model.fields,field_description:account_tax_balance.field_wizard_open_tax_balances__display_name
 msgid "Display Name"
 msgstr "Nome visualizzato"
@@ -102,9 +98,13 @@ msgstr "Nome visualizzato"
 #. module: account_tax_balance
 #: model:ir.model.fields,field_description:account_tax_balance.field_account_bank_statement_line__financial_type
 #: model:ir.model.fields,field_description:account_tax_balance.field_account_move__financial_type
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_payment__financial_type
 msgid "Financial Type"
-msgstr "Tipo Finanziario"
+msgstr "Tipo finanziario"
+
+#. module: account_tax_balance
+#: model_terms:ir.ui.view,arch_db:account_tax_balance.view_account_move_filter
+msgid "Financial type"
+msgstr "Tipo finanziario"
 
 #. module: account_tax_balance
 #: model:ir.model.fields,field_description:account_tax_balance.field_wizard_open_tax_balances__from_date
@@ -122,9 +122,6 @@ msgid "Has balance in period"
 msgstr "Ha un saldo nel periodo"
 
 #. module: account_tax_balance
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_move__id
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_move_line__id
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_tax__id
 #: model:ir.model.fields,field_description:account_tax_balance.field_wizard_open_tax_balances__id
 msgid "ID"
 msgstr "ID"
@@ -132,20 +129,12 @@ msgstr "ID"
 #. module: account_tax_balance
 #: model:ir.model,name:account_tax_balance.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: account_tax_balance
 #: model:ir.model,name:account_tax_balance.model_account_move_line
 msgid "Journal Item"
 msgstr "Movimento contabile"
-
-#. module: account_tax_balance
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_move____last_update
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_move_line____last_update
-#: model:ir.model.fields,field_description:account_tax_balance.field_account_tax____last_update
-#: model:ir.model.fields,field_description:account_tax_balance.field_wizard_open_tax_balances____last_update
-msgid "Last Modified on"
-msgstr "Ultima modifica il"
 
 #. module: account_tax_balance
 #: model:ir.model.fields,field_description:account_tax_balance.field_wizard_open_tax_balances__write_uid
@@ -158,15 +147,10 @@ msgid "Last Updated on"
 msgstr "Ultimo aggiornamento il"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/models/account_move.py:0
-#, python-format
 msgid "Liquidity"
 msgstr "Liquidità"
-
-#. module: account_tax_balance
-#: model_terms:ir.ui.view,arch_db:account_tax_balance.view_account_move_filter
-msgid "Move type"
-msgstr "Tipo movimento"
 
 #. module: account_tax_balance
 #: model_terms:ir.ui.view,arch_db:account_tax_balance.wizard_open_tax_balances
@@ -174,34 +158,34 @@ msgid "Open Taxes"
 msgstr "Apri imposte"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/models/account_move.py:0
-#, python-format
 msgid "Other"
 msgstr "Altro"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/models/account_move.py:0
-#, fuzzy, python-format
 msgid "Payable"
-msgstr "Esigibile"
+msgstr "Pagamenti"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/models/account_move.py:0
-#, fuzzy, python-format
 msgid "Payable refund"
-msgstr "Rimborso esigibile"
+msgstr "Rimborso pagabile"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/models/account_move.py:0
-#, fuzzy, python-format
 msgid "Receivable"
-msgstr "Esigibile"
+msgstr "Incassi"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/models/account_move.py:0
-#, fuzzy, python-format
 msgid "Receivable refund"
-msgstr "Nota di credito esigibile"
+msgstr "Rimborso pagabile"
 
 #. module: account_tax_balance
 #: model_terms:ir.ui.view,arch_db:account_tax_balance.view_tax_search_balance
@@ -259,57 +243,56 @@ msgid "Total Base Balance"
 msgstr "Saldo imponibile totale"
 
 #. module: account_tax_balance
+#. odoo-python
 #: code:addons/account_tax_balance/models/account_tax.py:0
-#, python-format
 msgid "Unsupported search operator"
 msgstr "Operatore di ricerca non supportato"
 
 #. module: account_tax_balance
 #: model_terms:ir.ui.view,arch_db:account_tax_balance.view_tax_tree_balance
-#, fuzzy
 msgid "View base lines"
 msgstr "Visualizza righe imponibile"
 
 #. module: account_tax_balance
 #: model_terms:ir.ui.view,arch_db:account_tax_balance.view_tax_tree_balance
-#, fuzzy
 msgid "View base refund lines"
-msgstr "Visualizza righe nota di credito imponibile"
+msgstr "Visualizza righe rimborso imponibile"
 
 #. module: account_tax_balance
 #: model_terms:ir.ui.view,arch_db:account_tax_balance.view_tax_tree_balance
-#, fuzzy
 msgid "View base regular lines"
 msgstr "Visualizza righe ordinarie imponibile"
 
 #. module: account_tax_balance
 #: model_terms:ir.ui.view,arch_db:account_tax_balance.view_tax_tree_balance
-#, fuzzy
 msgid "View tax lines"
 msgstr "Visualizza righe imposta"
 
 #. module: account_tax_balance
 #: model_terms:ir.ui.view,arch_db:account_tax_balance.view_tax_tree_balance
-#, fuzzy
 msgid "View tax refund lines"
-msgstr "Visualizza righe nota di credito imposta"
+msgstr "Visualizza righe rimborso imposta"
 
 #. module: account_tax_balance
 #: model_terms:ir.ui.view,arch_db:account_tax_balance.view_tax_tree_balance
-#, fuzzy
 msgid "View tax regular lines"
 msgstr "Visualizza righe ordinarie imposta"
 
 #. module: account_tax_balance
 #: model:ir.model,name:account_tax_balance.model_wizard_open_tax_balances
-#, fuzzy
 msgid "Wizard Open Tax Balances"
-msgstr "wizard.open.tax.balances"
+msgstr "Procedura guidata saldi fiscali aperti"
 
 #. module: account_tax_balance
 #: model_terms:ir.ui.view,arch_db:account_tax_balance.wizard_open_tax_balances
 msgid "or"
 msgstr "o"
+
+#~ msgid "Move type"
+#~ msgstr "Tipo movimento"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modifica il"
 
 #~ msgid "Journal Entries"
 #~ msgstr "Registrazioni contabili"
