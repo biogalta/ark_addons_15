@@ -169,7 +169,7 @@
                 <br/>
             </t>
         </xpath>
-        <xpath expr="//div[@id='informations']" position="replace">
+        <!--<xpath expr="//div[@id='informations']" position="replace">
             <div class="row-lg" id="informations">
                 <table class="table" style="border:none; width:70%;">
                     <tbody>
@@ -210,7 +210,7 @@
                     </tbody>
                 </table>
             </div>
-        </xpath>
+        </xpath>-->
         <xpath expr="//div[@class='clearfix']" position="replace">
             <div class="clearfix">
                 <div id="total" class="row mt-n3" name="total">
