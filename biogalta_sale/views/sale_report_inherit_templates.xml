@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="minimal_layout_inherit1" inherit_id="web.external_layout_boxed">
+    <template id="minimal_layout_inherit1" inherit_id="web.external_layout_boxed" priority="99">
         <xpath expr="//div[2]" position="inside">
             <style>
                 .o_report_layout_boxed{
