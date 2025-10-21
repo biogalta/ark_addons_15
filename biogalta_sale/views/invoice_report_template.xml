@@ -145,7 +145,7 @@
                 </table>
             </div>
         </xpath>
-        <xpath expr="//t[@t-set='address']" position="replace">
+        <!--<xpath expr="//t[@t-set='address']" position="replace">
             <t>
                 <table style="border:none;width:1100px; margin:auto;">
                     <tr>
@@ -171,7 +171,7 @@
                 </table>
             </t>
             <br/>
-        </xpath>
+        </xpath>-->
         <xpath expr="//div[@id='total']" position="replace">
             <div id="total" class="clearfix row">
                 <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
