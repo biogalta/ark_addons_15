@@ -89,34 +89,36 @@ class InheritAccountInvoice(models.Model):
             invoice.amount_by_group = list_tax_groups
             list_ids = []
             amount_untaxe_eco_calcul = 0.0
-            for line_amount in invoice.amount_by_group:
-                invoice_ref = self.env['tax.account.invoice'].search(
-                    [('invoice_id', '=', invoice.id), ('tax_name', '=', line_amount[0])])
-                for line_invoice in invoice_ref:
-                    if line_invoice.tax_value != line_amount[1]:
-                        line_invoice.unlink()
-                data = {
-                    'tax_name': str(line_amount[0]) + " sur " + str(fmt(line_amount[2])),
-                    'tax_value': str(fmt(round(float(line_amount[1]), 2))),
-                    'is_eco_tax': line_amount[6]
-                }
-                ref = self.env['tax.account.invoice'].create(data)
-                for line in ref:
-                    list_ids.append(line.id)
-                if line_amount[6] == True:
-                    amount_untaxe_eco_calcul = invoice.amount_untaxed + round(float(line_amount[1]), 2)
-            invoice.amount_untaxe_eco = fmt(amount_untaxe_eco_calcul)
-
-            for line_amount in invoice.amount_by_group:
-                if line_amount[6] == True:
+            if invoice.amount_by_group:
+                for line_amount in invoice.amount_by_group:
+                    invoice_ref = self.env['tax.account.invoice'].search(
+                        [('invoice_id', '=', invoice.id), ('tax_name', '=', line_amount[0])])
+                    for line_invoice in invoice_ref:
+                        if line_invoice.tax_value != line_amount[1]:
+                            line_invoice.unlink()
                     data = {
-                        'tax_name': "Taxe éco TTC sur " + str(fmt(line_amount[2])),
-                        'tax_value': str(line_amount[7]),
-                        'is_eco_tax': False
+                        'tax_name': str(line_amount[0]) + " sur " + str(fmt(line_amount[2])),
+                        'tax_value': str(fmt(round(float(line_amount[1]), 2))),
+                        'is_eco_tax': line_amount[6]
                     }
                     ref = self.env['tax.account.invoice'].create(data)
                     for line in ref:
                         list_ids.append(line.id)
+                    if line_amount[6] == True:
+                        amount_untaxe_eco_calcul = invoice.amount_untaxed + round(float(line_amount[1]), 2)
+            invoice.amount_untaxe_eco = fmt(amount_untaxe_eco_calcul)
+
+            if invoice.amount_by_group:
+                for line_amount in invoice.amount_by_group:
+                    if line_amount[6] == True:
+                        data = {
+                            'tax_name': "Taxe éco TTC sur " + str(fmt(line_amount[2])),
+                            'tax_value': str(line_amount[7]),
+                            'is_eco_tax': False
+                        }
+                        ref = self.env['tax.account.invoice'].create(data)
+                        for line in ref:
+                            list_ids.append(line.id)
 
             invoice.tax_invoice_ids = [(6, 0, list_ids)]
 
