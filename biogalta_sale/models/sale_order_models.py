@@ -99,34 +99,36 @@ class InheritSaleOrder(models.Model):
             order.amount_by_group = list_tax_groups
             list_ids = []
             amount_untaxe_eco_calcul = 0.0
-            for line_amount in order.amount_by_group:
-                order_ref = self.env['sale.order.tax'].search(
-                    [('order_id', '=', order.id), ('tax_name', '=', line_amount[0])])
-                for line_order in order_ref:
-                    if line_order.tax_value != line_amount[1]:
-                        line_order.unlink()
-                data = {
-                    'tax_name': str(line_amount[0]) + " sur " + str(fmt(line_amount[2])),
-                    'tax_value': str(fmt(round(float(line_amount[1]), 2))),
-                    'is_eco_tax': line_amount[6]
-                }
-                ref = self.env['sale.order.tax'].create(data)
-                for line in ref:
-                    list_ids.append(line.id)
-                if line_amount[6] == True:
-                    amount_untaxe_eco_calcul = order.amount_untaxed + round(float(line_amount[1]), 2)
-            order.amount_untaxe_eco = fmt(amount_untaxe_eco_calcul)
-
-            for line_amount in order.amount_by_group:
-                if line_amount[6] == True:
+            if order.amount_by_group:
+                for line_amount in order.amount_by_group:
+                    order_ref = self.env['sale.order.tax'].search(
+                        [('order_id', '=', order.id), ('tax_name', '=', line_amount[0])])
+                    for line_order in order_ref:
+                        if line_order.tax_value != line_amount[1]:
+                            line_order.unlink()
                     data = {
-                        'tax_name': "Taxe éco TTC sur " + str(fmt(line_amount[2])),
-                        'tax_value': str(line_amount[7]),
-                        'is_eco_tax': False
+                        'tax_name': str(line_amount[0]) + " sur " + str(fmt(line_amount[2])),
+                        'tax_value': str(fmt(round(float(line_amount[1]), 2))),
+                        'is_eco_tax': line_amount[6]
                     }
                     ref = self.env['sale.order.tax'].create(data)
                     for line in ref:
                         list_ids.append(line.id)
+                    if line_amount[6] == True:
+                        amount_untaxe_eco_calcul = order.amount_untaxed + round(float(line_amount[1]), 2)
+            order.amount_untaxe_eco = fmt(amount_untaxe_eco_calcul)
+
+            if order.amount_by_group:
+                for line_amount in order.amount_by_group:
+                    if line_amount[6] == True:
+                        data = {
+                            'tax_name': "Taxe éco TTC sur " + str(fmt(line_amount[2])),
+                            'tax_value': str(line_amount[7]),
+                            'is_eco_tax': False
+                        }
+                        ref = self.env['sale.order.tax'].create(data)
+                        for line in ref:
+                            list_ids.append(line.id)
 
             order.tax_orders_ids = [(6, 0, list_ids)]
 
