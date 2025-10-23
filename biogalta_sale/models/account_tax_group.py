@@ -16,7 +16,7 @@ TYPE_TAX_USE = [
 
 
 class AccountTaxGroup(models.Model):
-    _name = 'account.tax.group'
+    _inherit = 'account.tax.group'
     _description = 'Tax Group'
     _order = 'sequence asc'
 
