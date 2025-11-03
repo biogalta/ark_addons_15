@@ -34,20 +34,20 @@ class InheritAccountInvoice(models.Model):
             move.subtotal_eco = str(fmt(round(float(sub), 2)))
 
     @api.depends(
-        'line_ids.matched_debit_ids.debit_move_id.move_id.payment_id.is_matched',
+        'line_ids.matched_debit_ids.debit_move_id.move_id.origin_payment_id.is_matched',  
         'line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual',
         'line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual_currency',
-        'line_ids.matched_credit_ids.credit_move_id.move_id.payment_id.is_matched',
+        'line_ids.matched_credit_ids.credit_move_id.move_id.origin_payment_id.is_matched',
         'line_ids.matched_credit_ids.credit_move_id.move_id.line_ids.amount_residual',
         'line_ids.matched_credit_ids.credit_move_id.move_id.line_ids.amount_residual_currency',
-        'line_ids.debit',
-        'line_ids.credit',
+        'line_ids.balance',
         'line_ids.currency_id',
         'line_ids.amount_currency',
         'line_ids.amount_residual',
         'line_ids.amount_residual_currency',
         'line_ids.payment_id.state',
-        'line_ids.full_reconcile_id')
+        'line_ids.full_reconcile_id',
+        'state')
     def _compute_amount(self):
         res = super(InheritAccountInvoice, self)._compute_amount()
         for invoice in self:
@@ -89,34 +89,36 @@ class InheritAccountInvoice(models.Model):
             invoice.amount_by_group = list_tax_groups
             list_ids = []
             amount_untaxe_eco_calcul = 0.0
-            for line_amount in invoice.amount_by_group:
-                invoice_ref = self.env['tax.account.invoice'].search(
-                    [('invoice_id', '=', invoice.id), ('tax_name', '=', line_amount[0])])
-                for line_invoice in invoice_ref:
-                    if line_invoice.tax_value != line_amount[1]:
-                        line_invoice.unlink()
-                data = {
-                    'tax_name': str(line_amount[0]) + " sur " + str(fmt(line_amount[2])),
-                    'tax_value': str(fmt(round(float(line_amount[1]), 2))),
-                    'is_eco_tax': line_amount[6]
-                }
-                ref = self.env['tax.account.invoice'].create(data)
-                for line in ref:
-                    list_ids.append(line.id)
-                if line_amount[6] == True:
-                    amount_untaxe_eco_calcul = invoice.amount_untaxed + round(float(line_amount[1]), 2)
-            invoice.amount_untaxe_eco = fmt(amount_untaxe_eco_calcul)
-
-            for line_amount in invoice.amount_by_group:
-                if line_amount[6] == True:
+            if invoice.amount_by_group:
+                for line_amount in invoice.amount_by_group:
+                    invoice_ref = self.env['tax.account.invoice'].search(
+                        [('invoice_id', '=', invoice.id), ('tax_name', '=', line_amount[0])])
+                    for line_invoice in invoice_ref:
+                        if line_invoice.tax_value != line_amount[1]:
+                            line_invoice.unlink()
                     data = {
-                        'tax_name': "Taxe éco TTC sur " + str(fmt(line_amount[2])),
-                        'tax_value': str(line_amount[7]),
-                        'is_eco_tax': False
+                        'tax_name': str(line_amount[0]) + " sur " + str(fmt(line_amount[2])),
+                        'tax_value': str(fmt(round(float(line_amount[1]), 2))),
+                        'is_eco_tax': line_amount[6]
                     }
                     ref = self.env['tax.account.invoice'].create(data)
                     for line in ref:
                         list_ids.append(line.id)
+                    if line_amount[6] == True:
+                        amount_untaxe_eco_calcul = invoice.amount_untaxed + round(float(line_amount[1]), 2)
+            invoice.amount_untaxe_eco = fmt(amount_untaxe_eco_calcul)
+
+            if invoice.amount_by_group:
+                for line_amount in invoice.amount_by_group:
+                    if line_amount[6] == True:
+                        data = {
+                            'tax_name': "Taxe éco TTC sur " + str(fmt(line_amount[2])),
+                            'tax_value': str(line_amount[7]),
+                            'is_eco_tax': False
+                        }
+                        ref = self.env['tax.account.invoice'].create(data)
+                        for line in ref:
+                            list_ids.append(line.id)
 
             invoice.tax_invoice_ids = [(6, 0, list_ids)]
 
@@ -329,7 +331,7 @@ class InheritAccountInvoice(models.Model):
     def action_post(self):
         res = super(InheritAccountInvoice, self).action_post()
         #update serial number invoiced status
-        StockProductionLot = self.env['stock.production.lot']
+        StockProductionLot = self.env['stock.lot']
         for line in self.invoice_line_ids:
             if line.serial_num:
                 lot_id = StockProductionLot.search([('name','=',line.serial_num)])
@@ -388,7 +390,7 @@ class InheritAccountInvoiceLine(models.Model):
             rec.serial_num = ' - '.join(new_lot)
 
     def _check_facturation(self, lot_):
-        StockProductionLot = self.env['stock.production.lot']
+        StockProductionLot = self.env['stock.lot']
         for lot in lot_:
             lot_exists = StockProductionLot.search([('name','=',lot)], limit=1)
             if lot_exists and lot_exists.invoiced_lot:

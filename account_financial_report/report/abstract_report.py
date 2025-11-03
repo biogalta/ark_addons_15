@@ -7,6 +7,16 @@ from odoo import api, models
 class AgedPartnerBalanceReport(models.AbstractModel):
     _name = "report.account_financial_report.abstract_report"
     _description = "Abstract Report"
+    COMMON_ML_FIELDS = [
+        "account_id",
+        "partner_id",
+        "journal_id",
+        "date",
+        "ref",
+        "id",
+        "move_id",
+        "name",
+    ]
 
     @api.model
     def _get_move_lines_domain_not_reconciled(
@@ -56,6 +66,8 @@ class AgedPartnerBalanceReport(models.AbstractModel):
         company_id,
         partner_ids,
         only_posted_moves,
+        debit_amount_currency,
+        credit_amount_currency,
     ):
         debit_ids = set(debit_ids)
         credit_ids = set(credit_ids)
@@ -68,24 +80,8 @@ class AgedPartnerBalanceReport(models.AbstractModel):
         new_domain = self._get_new_move_lines_domain(
             new_ml_ids, account_ids, company_id, partner_ids, only_posted_moves
         )
-        ml_fields = [
-            "id",
-            "name",
-            "date",
-            "move_id",
-            "journal_id",
-            "account_id",
-            "partner_id",
-            "amount_residual",
-            "date_maturity",
-            "ref",
-            "debit",
-            "credit",
-            "reconciled",
-            "currency_id",
-            "amount_currency",
-            "amount_residual_currency",
-        ]
+        company_currency = self.env["res.company"].browse(company_id).currency_id
+        ml_fields = self._get_ml_fields()
         new_move_lines = self.env["account.move.line"].search_read(
             domain=new_domain, fields=ml_fields
         )
@@ -93,9 +89,37 @@ class AgedPartnerBalanceReport(models.AbstractModel):
         for move_line in move_lines:
             ml_id = move_line["id"]
             if ml_id in debit_ids:
-                move_line["amount_residual"] += debit_amount[ml_id]
+                if move_line.get("amount_residual", False):
+                    move_line["amount_residual"] += debit_amount[ml_id]
+                else:
+                    move_line["amount_residual"] = debit_amount[ml_id]
+                if move_line.get("amount_residual_currency", False):
+                    move_line["amount_residual_currency"] += debit_amount_currency[
+                        ml_id
+                    ]
+                else:
+                    move_line["amount_residual_currency"] = debit_amount_currency[ml_id]
             if ml_id in credit_ids:
-                move_line["amount_residual"] -= credit_amount[ml_id]
+                if move_line.get("amount_residual", False):
+                    move_line["amount_residual"] -= credit_amount[ml_id]
+                else:
+                    move_line["amount_residual"] = -credit_amount[ml_id]
+                if move_line.get("amount_residual_currency", False):
+                    move_line["amount_residual_currency"] -= credit_amount_currency[
+                        ml_id
+                    ]
+                else:
+                    move_line["amount_residual_currency"] = -credit_amount_currency[
+                        ml_id
+                    ]
+            # Set amount_currency=0 to keep the same behaviour as in v13
+            # Conditions: if there is no curency_id defined or it is equal
+            # to the company's curency_id
+            if "amount_currency" in move_line and (
+                "currency_id" not in move_line
+                or move_line["currency_id"] == company_currency.id
+            ):
+                move_line["amount_currency"] = 0
         return move_lines
 
     def _get_accounts_data(self, accounts_ids):
@@ -110,7 +134,7 @@ class AgedPartnerBalanceReport(models.AbstractModel):
                         "name": account.name,
                         "hide_account": False,
                         "group_id": account.group_id.id,
-                        "currency_id": account.currency_id or False,
+                        "currency_id": account.currency_id.id,
                         "currency_name": account.currency_id.name,
                         "centralized": account.centralized,
                     }
@@ -119,8 +143,22 @@ class AgedPartnerBalanceReport(models.AbstractModel):
         return accounts_data
 
     def _get_journals_data(self, journals_ids):
-        journals = self.env["account.journal"].browse(journals_ids)
+        journals = self.env["account.journal"].search_fetch(
+            [("id", "in", journals_ids)], ["code"]
+        )
         journals_data = {}
         for journal in journals:
             journals_data.update({journal.id: {"id": journal.id, "code": journal.code}})
         return journals_data
+
+    def _get_ml_fields(self):
+        return self.COMMON_ML_FIELDS + [
+            "amount_residual",
+            "reconciled",
+            "currency_id",
+            "credit",
+            "date_maturity",
+            "amount_residual_currency",
+            "debit",
+            "amount_currency",
+        ]

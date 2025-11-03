@@ -1,17 +1,18 @@
 # Copyright 2016 ACSONE SA/NV (<http://acsone.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)nses/agpl).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import datetime
 
 from dateutil.rrule import MONTHLY
 
 from odoo.exceptions import ValidationError
-from odoo.tests.common import Form, TransactionCase
+from odoo.tests import Form
+from odoo.tests.common import TransactionCase
 
 
 class DateRangeGeneratorTest(TransactionCase):
     def setUp(self):
-        super(DateRangeGeneratorTest, self).setUp()
+        super().setUp()
         self.generator = self.env["date.range.generator"]
         self.type = self.env["date.range.type"].create(
             {"name": "Fiscal year", "company_id": False, "allow_overlap": False}

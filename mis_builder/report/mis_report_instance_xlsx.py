@@ -6,7 +6,7 @@ import numbers
 from collections import defaultdict
 from datetime import datetime
 
-from odoo import _, fields, models
+from odoo import fields, models
 
 from ..models.accounting_none import AccountingNone
 from ..models.data_error import DataError
@@ -27,7 +27,6 @@ class MisBuilderXlsx(models.AbstractModel):
     _inherit = "report.report_xlsx.abstract"
 
     def generate_xlsx_report(self, workbook, data, objects):
-
         # get the computed result of the report
         matrix = objects._compute_matrix()
         style_obj = self.env["mis.report.style"]
@@ -53,8 +52,9 @@ class MisBuilderXlsx(models.AbstractModel):
         row_pos += 2
 
         # filters
-        if not objects.hide_analytic_filters:
-            for filter_description in objects.get_filter_descriptions_from_context():
+        filter_descriptions = objects.get_filter_descriptions()
+        if filter_descriptions:
+            for filter_description in objects.get_filter_descriptions():
                 sheet.write(row_pos, 0, filter_description)
                 row_pos += 1
             row_pos += 1
@@ -161,8 +161,10 @@ class MisBuilderXlsx(models.AbstractModel):
         now_tz = fields.Datetime.context_timestamp(
             self.env["res.users"], datetime.now()
         )
-        create_date = _("Generated on {} at {}").format(
-            now_tz.strftime(lang.date_format), now_tz.strftime(lang.time_format)
+        create_date = self.env._(
+            "Generated on %(gen_date)s at %(gen_time)s",
+            gen_date=now_tz.strftime(lang.date_format),
+            gen_time=now_tz.strftime(lang.time_format),
         )
         sheet.write(row_pos, 0, create_date, footer_format)
 

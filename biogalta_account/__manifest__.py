@@ -17,7 +17,7 @@
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Uncategorized',
-    'version': '15.0.1.1',
+    'version': '18.0.0.0.0',
     'license': 'LGPL-3',
 
     # any module necessary for this one to work correctly
@@ -25,8 +25,8 @@
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
+        # 'security/ir.model.access.csv',  # TODO: Uncomment when model is rewritten for Odoo 18
         'views/views.xml',
-        'data/grouped_account.xml',
+        # 'data/grouped_account.xml',  # TODO: Rewrite for Odoo 18 (account.account.template no longer exists)
     ],
 }

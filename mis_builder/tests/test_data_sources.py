@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import odoo.tests.common as common
+from odoo import Command
 
 from ..models.accounting_none import AccountingNone
 from ..models.mis_report import CMP_DIFF
@@ -41,32 +42,30 @@ class TestMisReportInstanceDataSources(common.TransactionCase):
         self.move_model = self.env["account.move"]
         self.journal_model = self.env["account.journal"]
         # create receivable bs account
-        type_ar = self.browse_ref("account.data_account_type_receivable")
         self.account_ar = self.account_model.create(
             {
-                "company_id": self.env.user.company_id.id,
+                "company_ids": [Command.link(self.env.user.company_id.id)],
                 "code": "400AR",
                 "name": "Receivable",
-                "user_type_id": type_ar.id,
+                "account_type": "asset_receivable",
                 "reconcile": True,
             }
         )
         # create income account
-        type_in = self.browse_ref("account.data_account_type_revenue")
         self.account_in = self.account_model.create(
             {
-                "company_id": self.env.user.company_id.id,
+                "company_ids": [Command.link(self.env.user.company_id.id)],
                 "code": "700IN",
                 "name": "Income",
-                "user_type_id": type_in.id,
+                "account_type": "income",
             }
         )
         self.account_in2 = self.account_model.create(
             {
-                "company_id": self.env.user.company_id.id,
+                "company_ids": [Command.link(self.env.user.company_id.id)],
                 "code": "700IN2",
                 "name": "Income",
-                "user_type_id": type_in.id,
+                "account_type": "income",
             }
         )
         # create journal

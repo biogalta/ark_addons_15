@@ -4,7 +4,7 @@
 # Copyright 2018 ForgeFlow, S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import date_utils
 
@@ -26,19 +26,9 @@ class TrialBalanceReportWizard(models.TransientModel):
         required=True,
         default="posted",
     )
-    hierarchy_on = fields.Selection(
-        [
-            ("computed", "Computed Accounts"),
-            ("relation", "Child Accounts"),
-            ("none", "No hierarchy"),
-        ],
-        required=True,
-        default="none",
-        help="""Computed Accounts: Use when the account group have codes
-        that represent prefixes of the actual accounts.\n
-        Child Accounts: Use when your account groups are hierarchical.\n
-        No hierarchy: Use to display just the accounts, without any grouping.
-        """,
+    show_hierarchy = fields.Boolean(
+        string="Show hierarchy",
+        help="Use when your account groups are hierarchical",
     )
     limit_hierarchy_level = fields.Boolean("Limit hierarchy levels")
     show_hierarchy_level = fields.Integer("Hierarchy Levels to display", default=1)
@@ -60,9 +50,10 @@ class TrialBalanceReportWizard(models.TransientModel):
     show_partner_details = fields.Boolean()
     partner_ids = fields.Many2many(comodel_name="res.partner", string="Filter partners")
     journal_ids = fields.Many2many(comodel_name="account.journal")
-
-    not_only_one_unaffected_earnings_account = fields.Boolean(readonly=True)
-
+    only_one_unaffected_earnings_account = fields.Boolean(
+        readonly=True,
+        default=lambda self: self._only_one_unaffected_earnings_account(),
+    )
     foreign_currency = fields.Boolean(
         string="Show foreign currency",
         help="Display foreign currency for move lines, unless "
@@ -77,6 +68,15 @@ class TrialBalanceReportWizard(models.TransientModel):
         comodel_name="account.account",
         help="Ending account in a range",
     )
+    grouped_by = fields.Selection(
+        selection=[("analytic_account", "Analytic Account")], default=False
+    )
+
+    @api.onchange("grouped_by")
+    def onchange_grouped_by(self):
+        if self.grouped_by == "analytic_account":
+            self.show_partner_details = False
+            self.show_hierarchy = False
 
     @api.onchange("account_code_from", "account_code_to")
     def on_change_account_range(self):
@@ -86,22 +86,24 @@ class TrialBalanceReportWizard(models.TransientModel):
             and self.account_code_to
             and self.account_code_to.code.isdigit()
         ):
-            start_range = int(self.account_code_from.code)
-            end_range = int(self.account_code_to.code)
+            start_range = self.account_code_from.code
+            end_range = self.account_code_to.code
             self.account_ids = self.env["account.account"].search(
                 [("code", ">=", start_range), ("code", "<=", end_range)]
             )
             if self.company_id:
                 self.account_ids = self.account_ids.filtered(
-                    lambda a: a.company_id == self.company_id
+                    lambda a: self.company_id in a.company_ids
                 )
 
-    @api.constrains("hierarchy_on", "show_hierarchy_level")
+    @api.constrains("show_hierarchy", "show_hierarchy_level")
     def _check_show_hierarchy_level(self):
         for rec in self:
-            if rec.hierarchy_on != "none" and rec.show_hierarchy_level <= 0:
+            if rec.show_hierarchy and rec.show_hierarchy_level <= 0:
                 raise UserError(
-                    _("The hierarchy level to filter on must be " "greater than 0.")
+                    self.env._(
+                        "The hierarchy level to filter on must be greater than 0."
+                    )
                 )
 
     @api.depends("date_from")
@@ -117,17 +119,21 @@ class TrialBalanceReportWizard(models.TransientModel):
             else:
                 wiz.fy_start_date = False
 
+    def _only_one_unaffected_earnings_account(self):
+        count = self.env["account.account"].search_count(
+            [
+                ("account_type", "=", "equity_unaffected"),
+                ("company_ids", "in", [self.company_id.id or self.env.company.id]),
+            ]
+        )
+        return count == 1
+
     @api.onchange("company_id")
     def onchange_company_id(self):
         """Handle company change."""
-        account_type = self.env.ref("account.data_unaffected_earnings")
-        count = self.env["account.account"].search_count(
-            [
-                ("user_type_id", "=", account_type.id),
-                ("company_id", "=", self.company_id.id),
-            ]
+        self.only_one_unaffected_earnings_account = (
+            self._only_one_unaffected_earnings_account()
         )
-        self.not_only_one_unaffected_earnings_account = count != 1
         if (
             self.company_id
             and self.date_range_id.company_id
@@ -147,7 +153,7 @@ class TrialBalanceReportWizard(models.TransientModel):
                 self.onchange_type_accounts_only()
             else:
                 self.account_ids = self.account_ids.filtered(
-                    lambda a: a.company_id == self.company_id
+                    lambda a: self.company_id in a.company_ids
                 )
         res = {
             "domain": {
@@ -160,7 +166,7 @@ class TrialBalanceReportWizard(models.TransientModel):
         if not self.company_id:
             return res
         else:
-            res["domain"]["account_ids"] += [("company_id", "=", self.company_id.id)]
+            res["domain"]["account_ids"] += [("company_ids", "in", self.company_id.ids)]
             res["domain"]["partner_ids"] += self._get_partner_ids_domain()
             res["domain"]["date_range_id"] += [
                 "|",
@@ -185,7 +191,7 @@ class TrialBalanceReportWizard(models.TransientModel):
                 and rec.company_id != rec.date_range_id.company_id
             ):
                 raise ValidationError(
-                    _(
+                    self.env._(
                         "The Company in the Trial Balance Report Wizard and in "
                         "Date Range must be the same."
                     )
@@ -195,13 +201,15 @@ class TrialBalanceReportWizard(models.TransientModel):
     def onchange_type_accounts_only(self):
         """Handle receivable/payable accounts only change."""
         if self.receivable_accounts_only or self.payable_accounts_only:
-            domain = [("company_id", "=", self.company_id.id)]
+            domain = [("company_ids", "in", [self.company_id.id])]
             if self.receivable_accounts_only and self.payable_accounts_only:
-                domain += [("internal_type", "in", ("receivable", "payable"))]
+                domain += [
+                    ("account_type", "in", ("asset_receivable", "liability_payable"))
+                ]
             elif self.receivable_accounts_only:
-                domain += [("internal_type", "=", "receivable")]
+                domain += [("account_type", "=", "asset_receivable")]
             elif self.payable_accounts_only:
-                domain += [("internal_type", "=", "payable")]
+                domain += [("account_type", "=", "liability_payable")]
             self.account_ids = self.env["account.account"].search(domain)
         else:
             self.account_ids = None
@@ -211,17 +219,17 @@ class TrialBalanceReportWizard(models.TransientModel):
         """Handle partners change."""
         if self.show_partner_details:
             self.receivable_accounts_only = self.payable_accounts_only = True
+            self.grouped_by = False
         else:
             self.receivable_accounts_only = self.payable_accounts_only = False
 
     @api.depends("company_id")
     def _compute_unaffected_earnings_account(self):
-        account_type = self.env.ref("account.data_unaffected_earnings")
         for record in self:
             record.unaffected_earnings_account = self.env["account.account"].search(
                 [
-                    ("user_type_id", "=", account_type.id),
-                    ("company_id", "=", record.company_id.id),
+                    ("account_type", "=", "equity_unaffected"),
+                    ("company_ids", "in", [record.company_id.id]),
                 ]
             )
 
@@ -249,28 +257,7 @@ class TrialBalanceReportWizard(models.TransientModel):
 
     def _prepare_report_trial_balance(self):
         self.ensure_one()
-        MoveLines = self.env['account.move.line'].sudo()
-        if not self.journal_ids and self.date_from and self.date_to:
-            move_ids=[]
-            line_ids = MoveLines.search(['&',('date','>=',self.date_from),('date','<=',self.date_to)])
-            for l in line_ids:
-                if l.account_id.id not in move_ids:
-                    move_ids.append(l.account_id.id)
-        if self.journal_ids and not self.date_from and not self.date_to:
-            move_ids=[]
-            line_ids = MoveLines.search([('journal_id','in',self.journal_ids.ids)])
-            for l in line_ids:
-                if l.account_id.id not in move_ids:
-                    move_ids.append(l.account_id.id)            
-        if self.journal_ids and self.date_from and self.date_to:
-            move_ids=[1]
-            line_ids = MoveLines.search([
-                ('date','>=',self.date_from),('date','<=',self.date_to),
-                ('journal_id','in',self.journal_ids.ids)])
-            for l in line_ids:
-                if l.account_id.id not in move_ids:
-                    move_ids.append(l.account_id.id)                                
-        res = {
+        return {
             "wizard_id": self.id,
             "date_from": self.date_from,
             "date_to": self.date_to,
@@ -278,19 +265,19 @@ class TrialBalanceReportWizard(models.TransientModel):
             "hide_account_at_0": self.hide_account_at_0,
             "foreign_currency": self.foreign_currency,
             "company_id": self.company_id.id,
-            "account_ids": move_ids,
+            "account_ids": self.account_ids.ids or [],
             "partner_ids": self.partner_ids.ids or [],
             "journal_ids": self.journal_ids.ids or [],
-            "fy_start_date": self.date_to,
-            "hierarchy_on": self.hierarchy_on,
+            "fy_start_date": self.fy_start_date,
+            "show_hierarchy": self.show_hierarchy,
             "limit_hierarchy_level": self.limit_hierarchy_level,
             "show_hierarchy_level": self.show_hierarchy_level,
             "hide_parent_hierarchy_level": self.hide_parent_hierarchy_level,
             "show_partner_details": self.show_partner_details,
             "unaffected_earnings_account": self.unaffected_earnings_account.id,
             "account_financial_report_lang": self.env.lang,
+            "grouped_by": self.grouped_by,
         }
-        return res
 
     def _export(self, report_type):
         """Default export is PDF."""

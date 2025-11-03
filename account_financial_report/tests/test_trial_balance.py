@@ -3,6 +3,8 @@
 # Copyright 2020 ForgeFlow S.L. (https://www.forgeflow.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+import re
+
 from odoo.tests import tagged
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -11,8 +13,18 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 @tagged("post_install", "-at_install")
 class TestTrialBalanceReport(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(
+            context=dict(
+                cls.env.context,
+                mail_create_nolog=True,
+                mail_create_nosubscribe=True,
+                mail_notrack=True,
+                no_reset_password=True,
+                tracking_disable=True,
+            )
+        )
         # Remove previous account groups and related invoices to avoid conflicts
         group_obj = cls.env["account.group"]
         cls.group1 = group_obj.create({"code_prefix_start": "1", "name": "Group 1"})
@@ -21,14 +33,21 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
         )
         cls.group2 = group_obj.create({"code_prefix_start": "2", "name": "Group 2"})
         # Set accounts
+        cls.account001 = cls._create_account_account(
+            cls,
+            {
+                "code": "001",
+                "name": "Account 001",
+                "account_type": "income_other",
+            },
+        )
         cls.account100 = cls.company_data["default_account_receivable"]
-        cls.account100.group_id = cls.group1.id
         cls.account110 = cls.env["account.account"].search(
             [
                 (
-                    "user_type_id",
+                    "account_type",
                     "=",
-                    cls.env.ref("account.data_unaffected_earnings").id,
+                    "equity_unaffected",
                 ),
             ],
             limit=1,
@@ -38,10 +57,7 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
             {
                 "code": "200",
                 "name": "Account 200",
-                "group_id": cls.group2.id,
-                "user_type_id": cls.env.ref(
-                    "account.data_account_type_other_income"
-                ).id,
+                "account_type": "income_other",
             },
         )
         cls.account300 = cls._create_account_account(
@@ -49,20 +65,15 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
             {
                 "code": "300",
                 "name": "Account 300",
-                "user_type_id": cls.env.ref(
-                    "account.data_account_type_other_income"
-                ).id,
+                "account_type": "income_other",
             },
         )
-        cls.account301 = cls._create_account_account(
+        cls.account201 = cls._create_account_account(
             cls,
             {
-                "code": "301",
-                "name": "Account 301",
-                "group_id": cls.group2.id,
-                "user_type_id": cls.env.ref(
-                    "account.data_account_type_other_income"
-                ).id,
+                "code": "201",
+                "name": "Account 201",
+                "account_type": "income_other",
             },
         )
         cls.previous_fy_date_start = "2015-01-01"
@@ -75,9 +86,9 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
         cls.unaffected_account = cls.env["account.account"].search(
             [
                 (
-                    "user_type_id",
+                    "account_type",
                     "=",
-                    cls.env.ref("account.data_unaffected_earnings").id,
+                    "equity_unaffected",
                 ),
             ],
             limit=1,
@@ -85,8 +96,6 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
 
     def _create_account_account(self, vals):
         item = self.env["account.account"].create(vals)
-        if "group_id" in vals:
-            item.group_id = vals["group_id"]
         return item
 
     def _add_move(
@@ -154,7 +163,7 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
                         "debit": receivable_credit,
                         "credit": receivable_debit,
                         "partner_id": partner.id,
-                        "account_id": self.account301.id,
+                        "account_id": self.account201.id,
                     },
                 ),
             ],
@@ -163,7 +172,7 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
         move.action_post()
 
     def _get_report_lines(
-        self, with_partners=False, account_ids=False, hierarchy_on="computed"
+        self, with_partners=False, account_ids=False, show_hierarchy=False
     ):
         company = self.env.user.company_id
         trial_balance = self.env["trial.balance.report.wizard"].create(
@@ -172,7 +181,7 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
                 "date_to": self.date_end,
                 "target_move": "posted",
                 "hide_account_at_0": True,
-                "hierarchy_on": hierarchy_on,
+                "show_hierarchy": show_hierarchy,
                 "company_id": company.id,
                 "account_ids": account_ids,
                 "fy_start_date": self.fy_date_start,
@@ -248,195 +257,9 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
         self.assertTrue(self.account100 in self.group1.compute_account_ids)
         self.assertTrue(self.account200 in self.group2.compute_account_ids)
 
-    def test_01_account_balance_computed(self):
-        # Change code of the P&L for not being automatically included
-        # in group 1 balances
-        earning_accs = self.env["account.account"].search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    self.env.ref("account.data_unaffected_earnings").id,
-                ),
-                ("company_id", "=", self.env.user.company_id.id),
-            ]
-        )
-        for acc in earning_accs:
-            acc.code = "999" + acc.code
-        # Generate the general ledger line
-        res_data = self._get_report_lines()
-        trial_balance = res_data["trial_balance"]
-
-        check_receivable_account = self.check_account_in_report(
-            self.account100.id, trial_balance
-        )
-        self.assertFalse(check_receivable_account)
-        check_income_account = self.check_account_in_report(
-            self.account200.id, trial_balance
-        )
-        self.assertFalse(check_income_account)
-        self.assertTrue(
-            self.check_account_in_report(self.unaffected_account.id, trial_balance)
-        )
-
-        # Add a move at the previous day of the first day of fiscal year
-        # to check the initial balance
-        self._add_move(
-            date=self.previous_fy_date_end,
-            receivable_debit=1000,
-            receivable_credit=0,
-            income_debit=0,
-            income_credit=1000,
-        )
-
-        # Re Generate the trial balance line
-        res_data = self._get_report_lines()
-        trial_balance = res_data["trial_balance"]
-        check_receivable_account = self.check_account_in_report(
-            self.account100.id, trial_balance
-        )
-        self.assertTrue(check_receivable_account)
-        check_income_account = self.check_account_in_report(
-            self.account200.id, trial_balance
-        )
-        self.assertFalse(check_income_account)
-
-        # Check the initial and final balance
-        account_receivable_lines = self._get_account_lines(
-            self.account100.id, trial_balance
-        )
-        group1_lines = self._get_group_lines(self.group1.id, trial_balance)
-
-        self.assertEqual(account_receivable_lines["initial_balance"], 1000)
-        self.assertEqual(account_receivable_lines["debit"], 0)
-        self.assertEqual(account_receivable_lines["credit"], 0)
-        self.assertEqual(account_receivable_lines["final_balance"], 1000)
-
-        self.assertEqual(group1_lines["initial_balance"], 1000)
-        self.assertEqual(group1_lines["debit"], 0)
-        self.assertEqual(group1_lines["credit"], 0)
-        self.assertEqual(group1_lines["final_balance"], 1000)
-
-        # Add reversed move of the initial move the first day of fiscal year
-        # to check the first day of fiscal year is not used
-        # to compute the initial balance
-        self._add_move(
-            date=self.fy_date_start,
-            receivable_debit=0,
-            receivable_credit=1000,
-            income_debit=1000,
-            income_credit=0,
-        )
-
-        # Re Generate the trial balance line
-        res_data = self._get_report_lines()
-        trial_balance = res_data["trial_balance"]
-        check_receivable_account = self.check_account_in_report(
-            self.account100.id, trial_balance
-        )
-        self.assertTrue(check_receivable_account)
-        check_income_account = self.check_account_in_report(
-            self.account200.id, trial_balance
-        )
-        self.assertTrue(check_income_account)
-
-        # Re Generate the trial balance line with an account filter
-        res_data = self._get_report_lines(
-            account_ids=(self.account100 + self.account200).ids
-        )
-        trial_balance = res_data["trial_balance"]
-        self.assertTrue(self.check_account_in_report(self.account100.id, trial_balance))
-        self.assertTrue(self.check_account_in_report(self.account200.id, trial_balance))
-        # Unaffected account should not be present
-        self.assertFalse(
-            self.check_account_in_report(self.unaffected_account.id, trial_balance)
-        )
-
-        # Check the initial and final balance
-        account_receivable_lines = self._get_account_lines(
-            self.account100.id, trial_balance
-        )
-        account_income_lines = self._get_account_lines(
-            self.account200.id, trial_balance
-        )
-        group1_lines = self._get_group_lines(self.group1.id, trial_balance)
-        group2_lines = self._get_group_lines(self.group2.id, trial_balance)
-
-        self.assertEqual(account_receivable_lines["initial_balance"], 1000)
-        self.assertEqual(account_receivable_lines["debit"], 0)
-        self.assertEqual(account_receivable_lines["credit"], 1000)
-        self.assertEqual(account_receivable_lines["final_balance"], 0)
-
-        self.assertEqual(account_income_lines["initial_balance"], 0)
-        self.assertEqual(account_income_lines["debit"], 1000)
-        self.assertEqual(account_income_lines["credit"], 0)
-        self.assertEqual(account_income_lines["final_balance"], 1000)
-
-        self.assertEqual(group1_lines["initial_balance"], 1000)
-        self.assertEqual(group1_lines["debit"], 0)
-        self.assertEqual(group1_lines["credit"], 1000)
-        self.assertEqual(group1_lines["final_balance"], 0)
-
-        self.assertEqual(group2_lines["initial_balance"], 0)
-        self.assertEqual(group2_lines["debit"], 1000)
-        self.assertEqual(group2_lines["credit"], 0)
-        self.assertEqual(group2_lines["final_balance"], 1000)
-
-        # Add another move at the end day of fiscal year
-        # to check that it correctly used on report
-        self._add_move(
-            date=self.fy_date_end,
-            receivable_debit=0,
-            receivable_credit=1000,
-            income_debit=1000,
-            income_credit=0,
-        )
-
-        # Re Generate the trial balance line
-        res_data = self._get_report_lines()
-        trial_balance = res_data["trial_balance"]
-        check_receivable_account = self.check_account_in_report(
-            self.account100.id, trial_balance
-        )
-        self.assertTrue(check_receivable_account)
-        check_income_account = self.check_account_in_report(
-            self.account200.id, trial_balance
-        )
-        self.assertTrue(check_income_account)
-
-        # Check the initial and final balance
-        account_receivable_lines = self._get_account_lines(
-            self.account100.id, trial_balance
-        )
-        account_income_lines = self._get_account_lines(
-            self.account200.id, trial_balance
-        )
-        group1_lines = self._get_group_lines(self.group1.id, trial_balance)
-        group2_lines = self._get_group_lines(self.group2.id, trial_balance)
-
-        self.assertEqual(account_receivable_lines["initial_balance"], 1000)
-        self.assertEqual(account_receivable_lines["debit"], 0)
-        self.assertEqual(account_receivable_lines["credit"], 2000)
-        self.assertEqual(account_receivable_lines["final_balance"], -1000)
-
-        self.assertEqual(account_income_lines["initial_balance"], 0)
-        self.assertEqual(account_income_lines["debit"], 2000)
-        self.assertEqual(account_income_lines["credit"], 0)
-        self.assertEqual(account_income_lines["final_balance"], 2000)
-
-        self.assertEqual(group1_lines["initial_balance"], 1000)
-        self.assertEqual(group1_lines["debit"], 0)
-        self.assertEqual(group1_lines["credit"], 2000)
-        self.assertEqual(group1_lines["final_balance"], -1000)
-
-        self.assertEqual(group2_lines["initial_balance"], 0)
-        self.assertEqual(group2_lines["debit"], 2000)
-        self.assertEqual(group2_lines["credit"], 0)
-        self.assertEqual(group2_lines["final_balance"], 2000)
-
     def test_02_account_balance_hierarchy(self):
         # Generate the general ledger line
-        res_data = self._get_report_lines(hierarchy_on="relation")
+        res_data = self._get_report_lines(show_hierarchy=True)
         trial_balance = res_data["trial_balance"]
         check_receivable_account = self.check_account_in_report(
             self.account100.id, trial_balance
@@ -458,7 +281,7 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
         )
 
         # Re Generate the trial balance line
-        res_data = self._get_report_lines(hierarchy_on="relation")
+        res_data = self._get_report_lines(show_hierarchy=True)
         trial_balance = res_data["trial_balance"]
         check_receivable_account = self.check_account_in_report(
             self.account100.id, trial_balance
@@ -497,7 +320,7 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
         )
 
         # Re Generate the trial balance line
-        res_data = self._get_report_lines(hierarchy_on="relation")
+        res_data = self._get_report_lines(show_hierarchy=True)
         trial_balance = res_data["trial_balance"]
         check_receivable_account = self.check_account_in_report(
             self.account100.id, trial_balance
@@ -549,7 +372,7 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
         )
 
         # Re Generate the trial balance line
-        res_data = self._get_report_lines(hierarchy_on="relation")
+        res_data = self._get_report_lines(show_hierarchy=True)
         trial_balance = res_data["trial_balance"]
         check_receivable_account = self.check_account_in_report(
             self.account100.id, trial_balance
@@ -715,7 +538,7 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
                 "date_to": self.date_end,
                 "target_move": "posted",
                 "hide_account_at_0": False,
-                "hierarchy_on": "none",
+                "show_hierarchy": False,
                 "company_id": company.id,
                 "fy_start_date": self.fy_date_start,
             }
@@ -768,7 +591,7 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
                 "date_to": self.date_end,
                 "target_move": "posted",
                 "hide_account_at_0": False,
-                "hierarchy_on": "none",
+                "show_hierarchy": False,
                 "company_id": company.id,
                 "fy_start_date": self.fy_date_start,
             }
@@ -822,7 +645,7 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
                 "date_to": self.date_end,
                 "target_move": "posted",
                 "hide_account_at_0": False,
-                "hierarchy_on": "none",
+                "show_hierarchy": False,
                 "company_id": company.id,
                 "fy_start_date": self.fy_date_start,
             }
@@ -857,3 +680,38 @@ class TestTrialBalanceReport(AccountTestInvoicingCommon):
         self.assertEqual(total_initial_balance, 0)
         self.assertEqual(total_final_balance, 0)
         self.assertEqual(total_debit, total_credit)
+
+    def test_05_all_accounts_loaded(self):
+        # Tests if all accounts which code is number are loaded
+        # when the account_code_ fields changed
+        all_accounts = (
+            self.env["account.account"]
+            .search([], order="code")
+            .filtered(lambda acc: re.fullmatch(r"[0-9]+(\.[0-9]+)?", acc.code))
+        )
+        company = self.env.user.company_id
+        trial_balance = self.env["trial.balance.report.wizard"].create(
+            {
+                "date_from": self.date_start,
+                "date_to": self.date_end,
+                "target_move": "posted",
+                "hide_account_at_0": False,
+                "show_hierarchy": False,
+                "company_id": company.id,
+                "fy_start_date": self.fy_date_start,
+                "account_code_from": self.account001.id,
+                "account_code_to": all_accounts[-1].id,
+            }
+        )
+        trial_balance.on_change_account_range()
+        # sets are needed because some codes are duplicated and
+        # thus the length of all_accounts would be higher
+        all_accounts_code_set = set()
+        trial_balance_code_set = set()
+        [all_accounts_code_set.add(account.code) for account in all_accounts]
+        [
+            trial_balance_code_set.add(account.code)
+            for account in trial_balance.account_ids
+        ]
+        self.assertEqual(len(trial_balance_code_set), len(all_accounts_code_set))
+        self.assertTrue(trial_balance_code_set == all_accounts_code_set)

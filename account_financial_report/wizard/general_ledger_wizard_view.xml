@@ -13,24 +13,20 @@
                         groups="base.group_multi_company"
                     />
                 </group>
-                <div
-                    attrs="{'invisible': [('not_only_one_unaffected_earnings_account', '=', True)]}"
-                >
+                <div invisible="not only_one_unaffected_earnings_account">
                     <group name="filters">
                         <group name="date_range">
                             <field name="date_range_id" />
                             <field name="date_from" />
                             <field name="date_to" />
                             <field name="fy_start_date" invisible="1" />
-                            <field name="account_journal_ids" widget="many2many_tags"/>
+                            <field name="target_move" widget="radio" />
                         </group>
                         <group name="other_filters">
-                            <field name="target_move" widget="radio" />
+                            <field name="grouped_by" />
                             <field name="centralize" />
-                            <field name="show_partner_details" />
                             <field name="hide_account_at_0" />
                             <field name="foreign_currency" />
-                            <field name="show_analytic_tags" />
                             <field name="show_cost_center" />
                         </group>
                     </group>
@@ -84,14 +80,6 @@
                                 options="{'no_create': True}"
                             />
                         </page>
-                        <page string="Filter analytic tags">
-                            <field
-                                name="analytic_tag_ids"
-                                widget="many2many_tags"
-                                nolabel="1"
-                                options="{'no_create': True}"
-                            />
-                        </page>
                         <page string="Additional Filtering">
                             <style>
                                 .o_domain_show_selection_button {display: none}
@@ -105,13 +93,8 @@
                         </page>
                     </notebook>
                 </div>
-                <div
-                    attrs="{'invisible': [('not_only_one_unaffected_earnings_account', '=', False)]}"
-                >
-                    <field
-                        name="not_only_one_unaffected_earnings_account"
-                        invisible="1"
-                    />
+                <div invisible="only_one_unaffected_earnings_account">
+                    <field name="only_one_unaffected_earnings_account" invisible="1" />
                     <group />
                     <h4>
                         General Ledger can be computed only if selected company have
@@ -120,34 +103,30 @@
                     <group />
                 </div>
                 <footer>
-                    <div
-                        attrs="{'invisible': [('not_only_one_unaffected_earnings_account', '=', True)]}"
-                    >
+                    <div invisible="not only_one_unaffected_earnings_account">
                         <button
-                            name="button_export_html"
-                            string="View"
-                            type="object"
-                            default_focus="1"
-                            class="oe_highlight"
-                        />
+                        name="button_export_html"
+                        string="View"
+                        type="object"
+                        default_focus="1"
+                        class="oe_highlight"
+                    />
                         or
                         <button
-                            name="button_export_pdf"
-                            string="Export PDF"
-                            type="object"
-                        />
+                        name="button_export_pdf"
+                        string="Export PDF"
+                        type="object"
+                    />
                         or
                         <button
-                            name="button_export_xlsx"
-                            string="Export XLSX"
-                            type="object"
-                        />
+                        name="button_export_xlsx"
+                        string="Export XLSX"
+                        type="object"
+                    />
                         or
                         <button string="Cancel" class="oe_link" special="cancel" />
                     </div>
-                    <div
-                        attrs="{'invisible': [('not_only_one_unaffected_earnings_account', '=', False)]}"
-                    >
+                    <div invisible="only_one_unaffected_earnings_account">
                         <button string="Cancel" class="oe_link" special="cancel" />
                     </div>
                 </footer>

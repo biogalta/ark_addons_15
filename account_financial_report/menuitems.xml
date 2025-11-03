@@ -3,8 +3,8 @@
     <menuitem
         parent="account.menu_finance_reports"
         id="menu_oca_reports"
-        name="PDF reports"
-        groups="account.group_account_manager,account.group_account_user"
+        name="OCA accounting reports"
+        groups="account.group_account_user"
     />
     <menuitem
         parent="menu_oca_reports"

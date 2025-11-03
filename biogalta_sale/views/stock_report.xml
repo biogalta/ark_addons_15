@@ -27,7 +27,7 @@
                     </div>
                 </t>
             </xpath>
-            <xpath expr="//div[@class='page']/div[1]" position="replace">
+            <xpath expr="//div[@id='informations']" position="replace">
                 <table class="table table-sm">
                     <thead>
                         <tr>
@@ -56,8 +56,8 @@
                     </tbody>
                 </table>
             </xpath>
-            <xpath expr="//div[@class='page']/div[last()]" position="after">
-                <p t-field="o.note"></p>
+            <xpath expr="//div[@class='page']" position="inside">
+                <p t-field="o.note" class="mt-4"></p>
             </xpath>
             <xpath expr="//h2" position="before">
                 <div class="row justify-content-end" t-if="o.sudo().sale_id.client_order_ref">
@@ -69,7 +69,7 @@
             </xpath>
         </template>
         <template id="report_picking_inherit" inherit_id="stock.report_picking">
-            <xpath expr="//div[@class='page']/div[3]" position="replace">
+            <xpath expr="//div[@id='informations']" position="replace">
                 <table class="table table-sm">
                     <thead>
                         <tr>

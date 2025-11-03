@@ -15,8 +15,18 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 @tagged("post_install", "-at_install")
 class TestGeneralLedgerReport(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(
+            context=dict(
+                cls.env.context,
+                mail_create_nolog=True,
+                mail_create_nosubscribe=True,
+                mail_notrack=True,
+                no_reset_password=True,
+                tracking_disable=True,
+            )
+        )
         cls.before_previous_fy_year = fields.Date.from_string("2014-05-05")
         cls.previous_fy_date_start = fields.Date.from_string("2015-01-01")
         cls.previous_fy_date_end = fields.Date.from_string("2015-12-31")
@@ -28,11 +38,11 @@ class TestGeneralLedgerReport(AccountTestInvoicingCommon):
         cls.unaffected_account = cls.env["account.account"].search(
             [
                 (
-                    "user_type_id",
+                    "account_type",
                     "=",
-                    cls.env.ref("account.data_unaffected_earnings").id,
+                    "equity_unaffected",
                 ),
-                ("company_id", "=", cls.env.user.company_id.id),
+                ("company_ids", "in", [cls.env.user.company_id.id]),
             ],
             limit=1,
         )
@@ -128,7 +138,7 @@ class TestGeneralLedgerReport(AccountTestInvoicingCommon):
         partner_in_report = False
         for account in general_ledger:
             if account["id"] == account_id and account["partners"]:
-                for partner in account["list_partner"]:
+                for partner in account["list_grouped"]:
                     if partner["id"] == partner_id:
                         partner_in_report = True
         return partner_in_report
@@ -146,7 +156,7 @@ class TestGeneralLedgerReport(AccountTestInvoicingCommon):
         initial_balance = False
         for account in general_ledger:
             if account["id"] == account_id and account["partners"]:
-                for partner in account["list_partner"]:
+                for partner in account["list_grouped"]:
                     if partner["id"] == partner_id:
                         initial_balance = partner["init_bal"]
         return initial_balance
@@ -164,7 +174,7 @@ class TestGeneralLedgerReport(AccountTestInvoicingCommon):
         final_balance = False
         for account in general_ledger:
             if account["id"] == account_id and account["partners"]:
-                for partner in account["list_partner"]:
+                for partner in account["list_grouped"]:
                     if partner["id"] == partner_id:
                         final_balance = partner["fin_bal"]
         return final_balance
