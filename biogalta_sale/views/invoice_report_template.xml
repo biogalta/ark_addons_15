@@ -36,7 +36,7 @@
         
     </xpath>
     <xpath expr="//div[@name='address_same_as_shipping']//address[@t-field='o.partner_id']" position="before">
-        <strong class="d-block mt-3">Adresse de livraison :</strong>
+        <strong class="d-block mt-3">Adresse de facturation  :</strong>
     </xpath>
         
     </template>
